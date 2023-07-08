@@ -332,10 +332,12 @@ workflow framework can be refreshed with the latest state.
 
 Many different workflow systems have been developed in the past. It is
 out of the scope of this document to present a complete overview of
-all the different systems. Instead, we compare some selected features
-of the systems and identify features that are important for us. The
-following features are important.
-
+all the different systems. Instead, list some of the systems and organize them in various categories within this section. A more detailed analysis is available at \cite{ }. One of the systems that has been developed is MLCube \cite{} developed within MLCommons. Similar to our framework is uses  YAML specification for organizing, running, and sharing machine learning experiments. It attempts to standardize the 
+ format for defining and packaging machine learning projects, including their code, dependencies, datasets, and configurations. Through this it aims to 
+ facilitate reproducibility and portability of machine learning experiments by encapsulating all the necessary components in a self-contained and portable container. Our system is needed as it provides both an enhancement on top of MLCube, as well as on the bottom.
+ Thus, we could integrate tools and services we developed within an MLCube specification, but also use MLCube within our framework. One of the features we try to emphasize is that we do not distribute a container in general, but just the description of how the container can be created either in Docker or singularity. This is important when the customization of the experiment and its applications is in the foreground. Furthermore, at time of writing the support of MLCube for singularity was not supporting our locally available resources (on which docker is not supported) so we could not utilize it. As a result our team has proposed changes to MLCube that will eventually result in a usable singularity port. 
+ 
+Next, we list the various categories of related workflow systems while augmenting. By no means this list is complete but represents a selected number of efforts. 
 %\begin{description}
 
 {\bf Batch parallelism.} Long-running jobs on HPC systems are coordinated through
