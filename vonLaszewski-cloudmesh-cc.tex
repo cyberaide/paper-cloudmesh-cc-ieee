@@ -333,19 +333,19 @@ workflow framework can be refreshed with the latest state.
 
 Many different workflow systems have been developed in the past. It is
 out of the scope of this document to present a complete overview of
-all the different systems. Instead, we compare some selected features
-of the systems and identify features that are important for us and
-present examples using citations to the features. The
-following features are important.
-
-%\begin{description}
+all the different systems. Instead, list some of the systems and organize them in various categories within this section. A more detailed analysis is available at \cite{ }. One of the systems that has been developed is MLCube \cite{} developed within MLCommons. Similar to our framework is uses  YAML specification for organizing, running, and sharing machine learning experiments. It attempts to standardize the 
+ format for defining and packaging machine learning projects, including their code, dependencies, datasets, and configurations. Through this it aims to 
+ facilitate reproducibility and portability of machine learning experiments by encapsulating all the necessary components in a self-contained and portable container. Our system is needed as it provides both an enhancement on top of MLCube, as well as on the bottom.
+ Thus, we could integrate tools and services we developed within an MLCube specification, but also use MLCube within our framework. One of the features we try to emphasize is that we do not distribute a container in general, but just the description of how the container can be created either in Docker or singularity. This is important when the customization of the experiment and its applications is in the foreground. Furthermore, at time of writing the support of MLCube for singularity was not supporting our locally available resources (on which docker is not supported) so we could not utilize it. As a result our team has proposed changes to MLCube that will eventually result in a usable singularity port. 
+ 
+Next, we list the various categories of related workflow systems while augmenting. By no means this list is complete but represents a selected number of efforts. 
 
 \subsubsection{ Batch parallelism} Long-running jobs on HPC systems are coordinated through
-Batch services  \cite{www-lsf}\cite{www-slurm} \cite{www-cloudmesh-manual}\cite{www-airflow} \cite{las-1996-thesis,las-1999-loosely}.
+Batch services  \cite{www-lsf,www-slurm,www-cloudmesh-manual,www-airflow,las-1996-thesis,las-1999-loosely}.
 
 \subsubsection{ Task parallelism} Tasks are a logical unit of work that is
 executed by a resource, service, or component. Task parallelism
-is often used in distributed resource frameworks \cite{www-cloudmesh-manual}\cite{www-airflow}.
+is often used in distributed resource frameworks \cite{www-cloudmesh-manual,www-airflow}.
 
 \subsubsection{ Resource Reservation} In some cases, access to batch queues on
 HPC systems take a long time. In the case of many different tasks, it
@@ -353,7 +353,7 @@ is sometimes useful to research a number of batch nodes and run many
 short-running programs on them if the need arises. This, however, can
 often be replaced just with properly coordinated workflows using a
 batch system. In fact, frameworks using such reservations internally
-implement them using the batch system  \cite{las-02-infogram}\cite{www-pegasus} \cite{www-parsl}\cite{arxiv-radical-pilot}.
+implement them using the batch system \cite{las-02-infogram,www-pegasus,www-parsl,arxiv-radical-pilot}.
 
 \subsubsection{ Computational Grids} Grids provide service-level access to
 distributed HPC computing resources. However, Grids (popular a decade
@@ -363,156 +363,32 @@ Cloud computing \cite{www-pegasus}.
 \subsubsection{ Cloud} Presently, computing resources are also available in
 the cloud as HPC, batch, and compute services, including specialized
 SaaS offerings that allow to integrate analytics functions into
-workflows \cite{www-cloudmesh-manual}\cite{www-airflow}\cite{www-gcloud}\cite{www-azure-rest}\cite{www-aws-workflow}\cite{www-azure-batch}.
+workflows \cite{www-cloudmesh-manual,www-airflow,www-gcloud,www-azure-rest,www-aws-workflow,www-azure-batch}.
 
 \subsubsection{ REST} The predominant specification for cloud services uses the
 REST framework relying on a stateless model. This contrasts with the
 WSRF model that uses stateful services \cite{www-business-rest-ibm}.
 
 \subsubsection{ Specification} Some work has also focused on the specification
-of the workflows  \cite{www-snakemake}\cite{las-2004-gridant}\cite{www-pegasus}\cite{las-2007-swift}\cite{www-aws-swf}.
+of the workflows  \cite{www-snakemake,las-2004-gridant,www-pegasus,las-2007-swift,www-aws-swf}.
 
-\subsubsection{ GUI} Some frameworks provide extensive GUIs \cite{www-kepler}\cite{www-aws-stepfunctions}\cite{www-azure-batch} \cite{www-azure-enterprise-workflow}.
-
-
-%\end{description}
-
-
-
-In Table~\ref{tab:workflow-table}, we provide a number of examples for
-the various features we found in workflow systems.
-
-
-\begin{table*}[htb]
-
-\caption{Example of workflow frameworks with selected features.}
-\label{tab:workflow-table}
-
-\resizebox{1.0\textwidth}{!}{
-{\footnotesize
-\begin{tabular}{|p{3cm}|p{3cm}|p{10cm}|}
-\hline
-{\bf Name} & {\bf Selected Features} & {\bf Description} \\
-\hline
-\hline
-
-LSF \cite{www-lsf} & Batch, HPC & Batch Queue Manager. \\
-\hline
-
-SLURM \cite{www-slurm} & Batch, HPC & Batch queue workflow manager. \\
-\hline
-
-Cloudmesh  \cite{www-cloudmesh-manual} & HPC, Cloud, on-Premise, Task & Suite
-of Python code for cloud computing. \\
-\hline
-
-Airflow \cite{www-airflow} & HPC, Cloud, Remote Tasks & ``Airflow is a platform created by the community to programmatically author, schedule, and monitor workflows.'' \\
-\hline
-
-
-Loosely coupled Metacomputer \cite{las-1996-thesis,las-1999-loosely} &
-                                                                       HPC, on-Premise
-             & Early work on workflow management system connecting multiple supercomputers. \\
-\hline
-
-Karajan CoGkit  \cite{las07-workflow} & Service, Language, HPC, on-Premise & Sophisticated Workflow management system with Dag and loops for Grid computing and loosely coupled compute resources through services. \\
-\hline
-
-Snakemake  \cite{www-snakemake} & Language & ``The Snakemake workflow management system is a tool to create reproducible and scalable data analyses. Workflows are described via a human-readable, Python-based language. They can be seamlessly scaled to server, cluster, grid, and cloud environments, without the need to modify the workflow definition. Finally, Snakemake workflows can entail a description of the required software, which will be automatically deployed to any execution environment.'' \\
-\hline
-
-Gridant  \cite{las-2004-gridant} & Language & 
-Client-based workflow management toolkit to orchestrate complex workflows on the fly without substantial help from the service providers. It integrates on premise and Grid resources. \\
-\hline
-
-Keppler  \cite{www-kepler} & Service, GUI & ``Kepler is designed to help scientists, analysts, and computer programmers create, execute, and share models and analyses across a broad range of scientific and engineering disciplines.'' \\
-\hline
-
-Pegasus  \cite{www-pegasus} & DAG, Service, HPC, Cloud &  A DAG-based workflow management tool for scientific workflow.  \\
-\hline
-
-Swift \cite{las-2007-swift} & Language, Resource Reservation & A language for distributed parallel scripting.\\
-\hline
-
-Parsl \cite{www-parsl} & Language, Resource Reservation & A language for distributed parallel scripting. \\
-\hline
-
-Radical Pilot \cite{arxiv-radical-pilot} & Resource Reservation & Pilot system that enables scalable workflows \\ 
-\hline
-
-Gcloud workflow \cite{www-gcloud} & Cloud & Google Cloud documentation for creating a workflow with the command line interface. \\
-\hline
-
-Azure REST \cite{www-azure-rest} & Cloud & Microsoft Azure REST API documentation to interface with Azure Logic Apps. \\
-\hline
-
-GitHub REST Cancel a Workflow Run \cite{www-github-rest-cancel}
-& GitHub Actions
-& GitHub REST API documentation to cancel a GitHub Workflow. \\
-\hline
-
-%ArcGIS Rest \cite{www-arcgis-rest} & & ArcGIS documentation for its REST API to interface with the ArcGIS Server. \\
-%\hline
-
-Azure Enterprise Workflow \cite{www-azure-enterprise-workflow} & GUI,
-Workflow & Enterprise Workflows with Azure Logic Applications \\
-\hline
-
-WSDL \cite{www-wsdl} & Specification & Microsoft Azure schema reference for the Workflow Definition Language in Azure Logic Apps. \\
-  \hline
-
-  WSRF \cite{www-wsrf} & Specification & OASIS Web Services Resource Framework\\
-
-AWS Workflow \cite{www-aws-workflow} &  & Amazon Web Services documentation definition of a workflow.\\
-\hline
-
-AWS SWF \cite{www-aws-swf} & Task & Amazon Web Services documentation for managing simple workflows with tasks. \\
-\hline
-
-AWS Step Functions \cite{www-aws-stepfunctions} & GUI, Task & Amazon Web Services documentation for visual workflow service. \\
-\hline
-
-AWS HPC  \cite{www-aws-batch-workflow} & Cloud, HPC & Amazon Web Services documentation for setting workflow dependencies using batch processing in HPC on the cloud. \\
-\hline
-
-Azure Batch \cite{www-azure-batch} & Cloud, Batch & Microsoft Azure documentation for running batch service workflows. \\
-  \hline
-
- Business Automation with REST \cite{www-business-rest-ibm} & Business
-                                        Process& IBM REST API documentation for its Business Automation Workflows. \\
-\hline
-
-  
-% --  Artifact Visualization \cite{www-artifact} & & Argo Workflows documentation for Kubernetes which shows how to visualize artifacts. \\
-% \hline
-
-% -- REST Capabilities for RESTful Workflows \cite{www-rest-workflows} & & Article that demonstrates various examples of REST APIs, such as KNIME. \\
-% \hline
-
-Infogram \cite{las-02-infogram} & Service & A Peer-to-Peer Information and Job Submission Service.\\
-\hline
-\end{tabular}
-}
-}
-\end{table*}
-
-% \input{cc-design}
-
-\FILE{cc-design.tex}
+\subsubsection{ GUI} Some frameworks provide extensive GUIs \cite{www-kepler,www-aws-stepfunctions,www-azure-batch,www-azure-enterprise-workflow}.
 
 
 \section{Design}
 
 To fulfill our requirements, we have developed a framework for
 workflow-controlled computing called Cloudmesh compute cluster,
-otherwise referred to as {\em Cloudmesh-cc}. The architecture of the
+otherwise referred to as {\em Cloudmesh-cc}. It is enhanced by a
+specialize experiment executor allowing to easily specify parameter
+enhanced workflow specifications. The architecture of the
 framework is depicted in Figure~\ref{fig:arch}.
 
 \begin{figure}[htb]
 {\centering
 \includegraphics[width=1.0\columnwidth]{images/cloudmesh-cc-arch.pdf}
 }
-\caption{Architecture of the Cloudmesh-cc Framework}\label{fig:arch}
+\caption{Architecture of the Framework}\label{fig:arch}
 \end{figure}
 
 The framework is based on a layered architecture so it can be improved
@@ -544,12 +420,7 @@ execution services.
 
 The workflows are defined with YAML. The workflow is stored in a
 database that can be implemented using a variety of backends such as
-YamlDB (which is file-based), MongoDB, or pickle. In our current
-implementation, we simply use a file-based implementation as it is not
-required to set up and manage more complex databases. This is an
-important capability as we found that scientists and beginning
-students do not want to engage in the hassle of setting up and
-managing a datastore such as MongoDB.
+YamlDB, which is file-based and provides the easiest integration.
 
 As we use a YAML file to represent the status of the workflow, it is
 easy to create monitoring components (for example, as part of a Web
@@ -590,32 +461,29 @@ The framework is managed as an open-source repository in GitHub and
 uses Python as the implementation language. The code is compatible
 with Windows, macOS, and Linux.
 
-% \input{specifying-workflows.tex}
+It is crucial to note that in addition to this task parallel approach
+allowing us to integrate hybrid resources controlled by the user we
+also have the experiment executer which we describe in more detail in
+Section \label{sec:cloudmesh-sbatch}.
 
-
-\FILE{specifying-workflows.tex}
+We will first focus on our ability to specify task parallel workflows.
 
 \section{Specifying Workflows}\label{specifying-workflows}
 
 The workflow definition for cloudmesh is rather simple and intuitive.
 An example is provided in Figure~\ref{fig:workflow-example}. Here, a
-DAG with three nodes are specified ($start \rightarrow fetch-data
-\rightarrow compute \rightarrow analyze \rightarrow end$). The
+DAG with three nodes are specified ( $start \rightarrow fetch-data
+\rightarrow compute \rightarrow analyze \rightarrow end$ ). In this
+example the
 workflow executes three scripts
 (test-[fetch-data,compute,analyze].sh). It contains a specific start
-and end node.
+and end node. This is a typical usepattern for DL related analysis tasks.
 
 \subsection{Dependencies}
 
 Each dependency is specified in the {\em dependency} section while
-providing sequences of names in a list such as
-{\scriptsize\texttt -start,fetch-data}
-or, in our case where 3 more nodes are defined,
-additional nodes are appended with commas, as in
-{\scriptsize\texttt ,compute,analyze,end}.
-
-In case one wants to execute nodes in parallel, we can simply define
-them through a list such as 
+providing sequences of names in a list. In case one wants to execute
+nodes in parallel, we can simply define them through a list such as
 
 
 {\scriptsize
@@ -682,7 +550,8 @@ workflow:
 \begin{table}[htb]
 \caption{Node attributes.}\label{tab:node-attributes}
 
-\resizebox{1.0\columnwidth}{!}{
+
+{\scriptsize
 \begin{tabular}{|l|p{6cm}|}
 \hline
 {\bf Attribute} & {\bf Description} \\
@@ -704,6 +573,48 @@ script &  The script name to be executed \\
 \hline
 \end{tabular}
 }
+
+\bigskip
+
+\caption{List of possible labels for nodes on the graph.}
+\label{fig:labels-list}
+
+{\scriptsize
+  \begin{tabular}{|p{3.5cm}|p{4cm}|}
+    \hline
+    {\bf Name} & {\bf Description} \\
+    \hline
+    \hline
+    progress &  progress of job from 0-100 \\
+    \hline
+    now & current time \\
+    \hline
+    now.\verb|%Y%m%d,%H--%M--%S| &
+   now in particular format (this can be used for other times as well) \\
+    \hline
+    created & time when workflow was created \\
+    \hline
+    t0.\verb|%Y%m%d,%H--%M--%S| &  workflow start time \\
+    \hline
+    t1.\verb|%Y%m%d,%H--%M--%S| & workflow end time \\
+    \hline
+    dt0.\verb|%Y%m%d,%H--%M--%S| & elapsed time since workflow began \\
+    \hline
+    dt1.\verb|%Y%m%d,%H--%M--%S| & total time of workflow once complete \\
+    \hline
+    tstart.\verb|%Y%m%d,%H--%M--%S| & job start time \\
+    \hline
+    tend.\verb|%Y%m%d,%H--%M--%S| & job end time \\
+    \hline
+    modified.\verb|%Y%m%d,%H--%M--%S| & job modified time \\
+    \hline
+    os. & operating system environment variable (like os.HOME) \\
+    \hline
+    cm. & cloudmesh variable that is read from \verb|cms set| \\
+    \hline
+\end{tabular}
+}
+
 \end{table}
 
 \subsection{Node labels}
@@ -773,49 +684,6 @@ characteristics.
 \caption{An example node with labels.}\label{fig:label-node}
 \end{figure}
 
-
-
-
-\begin{table}[htb]
-\caption{List of possible labels for nodes on the graph.}
-\label{fig:labels-list}
-
-{\footnotesize
-  \begin{tabular}{|p{3.5cm}|p{4cm}|}
-    \hline
-    {\bf Name} & {\bf Description} \\
-    \hline
-    \hline
-    progress &  progress of job from 0-100 \\
-    \hline
-    now & current time \\
-    \hline
-    now.\verb|%Y%m%d,%H--%M--%S| &
-   now in particular format (this can be used for other times as well) \\
-    \hline
-    created & time when workflow was created \\
-    \hline
-    t0.\verb|%Y%m%d,%H--%M--%S| &  workflow start time \\
-    \hline
-    t1.\verb|%Y%m%d,%H--%M--%S| & workflow end time \\
-    \hline
-    dt0.\verb|%Y%m%d,%H--%M--%S| & elapsed time since workflow began \\
-    \hline
-    dt1.\verb|%Y%m%d,%H--%M--%S| & total time of workflow once complete \\
-    \hline
-    tstart.\verb|%Y%m%d,%H--%M--%S| & job start time \\
-    \hline
-    tend.\verb|%Y%m%d,%H--%M--%S| & job end time \\
-    \hline
-    modified.\verb|%Y%m%d,%H--%M--%S| & job modified time \\
-    \hline
-    os. & operating system environment variable (like os.HOME) \\
-    \hline
-    cm. & cloudmesh variable that is read from \verb|cms set| \\
-    \hline
-\end{tabular}
-}
-\end{table}
 
 
 \subsection{Shapes and Styles}
