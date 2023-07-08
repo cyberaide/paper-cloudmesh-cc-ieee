@@ -87,22 +87,27 @@ Harwell Campus\\
 \begin{abstract}
 
  In this paper, we summarize our effort to create and utilize a {\em
- simple} framework to coordinate computational analytics tasks with
+ simple} framework to coordinate computational AI analytics tasks with
  the help of a workflow system. Our design is based on a minimalistic
- approach while at the same time allowing to access computational
- resources offered through the owner's computer, HPC computing
- centers, cloud resources, and distributed systems in general. The
- access to this framework includes a simple GUI for monitoring and
- managing the workflow, a REST service, a command line interface, as
- well as a Python interface. The resulting framework was developed for
- several examples targeting benchmarks of AI applications on hybrid
- compute resources and as an educational tool for teaching scientists
- and students sophisticated concepts to execute computations on
- resources ranging from a single computer to many thousands of
- computers as part of on-premise and cloud infrastructure. We
- demonstrate the usefulness of the tool on a number of examples. The
- code is available as an open-source project in GitHub and is based on
- an easy-to-enhance tool called cloudmesh.
+ approach while at the same time allowing to access to hybrid
+ computational resources offered through the owner's computer, HPC
+ computing centers, cloud resources, and distributed systems in
+ general. The access to this framework includes a simple GUI for
+ monitoring and managing the workflow, a REST service, a command line
+ interface, as well as a Python interface. It also includes a template
+ based batch management system that allows through configuration files
+ to generate reproducable experiments while creating permutations over
+ selected experiment parameters easily.  The resulting framework was
+ developed for several examples targeting benchmarks of AI
+ applications on hybrid compute resources and as an educational tool
+ for teaching scientists and students sophisticated concepts to
+ execute computations on resources ranging from a single computer to
+ many thousands of computers as part of on-premise and cloud
+ infrastructure. We demonstrate the usefulness of the tool while
+ creating FAIR principle based result generation for the MLCommons
+ Science Working Group Cloudmask application. The code is available as
+ an open-source project in GitHub and is based on an easy-to-enhance
+ tool called Cloudmesh.
 
 
 \end{abstract}
@@ -166,14 +171,38 @@ component, formatting, style, styling, insert
 
 \section{Introduction}
 
-In this section we provide an introduction to our work while
+In In this section we provide an introduction to our work while
 moving forward to motivate a 
 Hybrid Reusable Computational Analytics Workflow
 Management Framework.
 
-\subsection{Reusable Computational Analytics}
+Our long-term involvement as part of the MLCommons Science Working Group has greatly influenced this work. MLCommons is a non-profit organization that brings together over 70 members from industry, academia, and government, with the aim of accelerating machine learning innovation for the benefit of all~\cite{www-mlcommons}. One of its primary objectives is to develop standardized benchmarks for assessing the performance of machine learning systems and applying them to various applications.
+These applications encompass a wide range of domains, including healthcare, automotive, image analysis, and natural language processing, among others. MLCommons focuses on benchmarking training~\cite{mlperf-training} and validation algorithms to track progress over time. To achieve this goal, MLCommons explores machine learning efforts in the realms of benchmarking, dataset development for benchmarking purposes, and the establishment of best practices that make effective use of machine learning. MLCommons is organized into several working groups that tackle specific topics, such as benchmarking in relation to training, training on high-performance computing (HPC) resources, and inference performed on data centers, edge devices, mobile devices, and embedded systems. Best practices are investigated in areas such as infrastructure and power management. Moreover, MLCommons operates additional working groups dedicated to Algorithms, DataPerf Dynabench, Medical, Science, and Storage.
 
-{\em Reusable computational analytics} (RCA) focuses on the creation
+The Science Working Group within MLCommons is primarily focused on advancing the scientific aspects beyond the mere creation of static benchmarks \cite{las-22-mlcommons-science}. The work presented here is an outcome of our contributions to the goals set forth by the MLCommons Science Working Group.
+
+As part of this activity, we are collaborating with a large number of researchers, including aspiring researchers from various academic institutions. However, we are confronted with multiple challenges:
+(a) Many participants are not sufficiently familiar with using high-performance computing (HPC) or other resources to conduct reproducible experiments reliably.
+(b) When dealing with different compute resources, special system configurations need to be developed for each resource, and these configurations may even vary from user to user on the system.
+(c) creating a reproducable experiment is often out of scope as the focus for beginning student that have barely the time to run and understand the application during a semester activity.
+
+What we strive to achieve is to make the situation simpler for the students while working at the same time towards the implementation of the FAIR principle \cite{www-fair} for the targeted MLCommons Science applications adressing the previous mentioned issues. 
+
+Although we are applying our approach on other applications, we focus here on the MLCommons Cloudmask \cite{las-22-mlcommons-science} application that tries to identify the cloudcover from satelite images.
+
+The paper is structured as follows. First we present important requirement aspects that influenced the design and implemenattion of our work (Section \ref{sec:requirements}).
+
+
+\section{Requirements}
+\label{sec:requirements}
+
+We list the requirements that influence our design and describe in more detail requirements arising from reusability, design, and implementation specific requirements.
+
+\subsection{Reusability Requirements}
+
+\subsubsection{Reusable computational analytics}
+
+Reusable computational analytics} (RCA) focuses on the creation
 of reusable programs, patterns, and services to conduct analytics
 tasks that are part of the scientific discovery process. RCA service
 need varies widely and may include multi-scale hardware resources as
@@ -185,7 +214,7 @@ into many different programming languages and frameworks so that
 services that may be designed in one framework or language may be
 reusable in others.
 
-\subsection{Reusable Multi-scale Algorithms}
+\subsubsection{Reusable Multi-scale Algorithms}
 
 In current scientific problems we encounter a rich set of applications
 that leverage a number of sophisticated methods that may require
@@ -194,7 +223,7 @@ Domain size, accuracy and time requirement to solve them in a
 sufficient manner. It is of advantage to provide reusable components
 that can be controlled by parameters to simplify reuse.
 
-\subsection{Hybrid Cloud and Compute Resources and Serices}
+\subsubsection{Hybrid Cloud and Compute Resources and Serices}
 
 As we deal with multi-scale algorithms, not every analytics task needs
 to be conducted on a High Performance Computer (HPC). This is
@@ -206,7 +235,7 @@ includes the use compute resources, but also services that are these
 days offered by cloud service providers. A well-known example for this
 is natural language processing.
 
-\subsection{Reusable and Adaptable HPC and Cloud Service Workflows}
+\subsubsection{Reusable and Adaptable HPC and Cloud Service Workflows}
 
 High-performance computing (HPC) has been, for decades, a very important tool
 for science. Scientific tasks can leverage the processing power of
@@ -231,19 +260,15 @@ can be integrated in concert with HPC, as well as the users local
 resources (for example a PC).
 
 
+\subsection{Design and Implementation Requirements}
 
-
-% \input{requirements.tex}
-
-\FILE{requirements.tex}
-
-\section{Requirements}
 
 For the design of the framework, we have the following requirements.
 
-%\begin{description}
 
-{\bf Simplicity.} The design must be simple and the code base must be
+\subsubsection{Simplicity}
+
+The design must be simple and the code base must be
 small.  This helps the future maintenance of the code, but also allows
 the code to become part of educational opportunities such as in a
 Research Experience for Undergraduates (REU), capstone project, and
@@ -252,16 +277,16 @@ big to be used in introductory undergraduate and masters activities.
 However, the framework should be capable enough to also support
 research projects.
 
-{\bf Workflow specification.} The specification of the workflow must
+\subsubsection{Workflow specification} The specification of the workflow must
 be simple.  From the past we have learned that the introduction of
 programming control components such as loops, and conditions, in
 addition to DAGs, is essential to provide maximum flexibility.
 
-{\bf Workflow Monitoring.} The workflow framework must be able to
+\subsubsection{Workflow Monitoring} The workflow framework must be able to
 monitor the progress of individual jobs as well as the overall
 progress of the workflow.
 
-{\bf Workflow Interfaces.} To specify and interface with the
+\subsubsection{Workflow Interfaces} To specify and interface with the
 workflow, we must provide several interface layers. This includes
 specification through a YAML file, interfacing through REST calls,
 interfacing through a Python API, and interfacing with a very simple
@@ -269,28 +294,28 @@ GUI component.  For the workflow monitoring with the GUI, we must be
 able to easily define custom text to reflect user designable
 monitoring labels.
 
-{\bf Language Independence.} As we want to make the framework
+\subsubsection{Language Independence} As we want to make the framework
 integrable in other frameworks, we need a simple mechanism to provide
 either API or interface portability. To keep the code base small, a
 REST API seems very well-suited.
 
-{\bf OpenAPI.} To further strengthen usability, the framework must
+\subsubsection{OpenAPI} To further strengthen usability, the framework must
 have an OpenAPI interface. This allows the integration via 3rd party
 tools into other frameworks and languages, if desired.
 
-{\bf Hybrid multicloud Providers.} The service must be able to be
+\subsubsection{Hybrid multicloud Providers} The service must be able to be
 deployable on an on-premise local computer or various cloud providers.
 
-{\bf Generalized Job Interface.} The framework must be able to
+\subsubsection{Generalized Job Interface} The framework must be able to
 interface with a wide variety of computation services. This includes
 the support of ssh, batch queues such as Slurm and LSF, and local
 compute resources including shell scripts, as well as support for WSL.
 
-{\bf Support of various Operating Systems.} The framework must be
+\subsubsection{Support of various Operating Systems} The framework must be
 runnable on various client operating systems including Linux, macOS,
 Windows.
 
-{\bf State Management.} The state management must be recoverable and
+\subsubsection{State Management} The state management must be recoverable and
 the client must be able to completely recover from a network failure.
 As such, the state will be queried on demand. This allows one to
 deploy the framework on a laptop, start the workflow, close or
