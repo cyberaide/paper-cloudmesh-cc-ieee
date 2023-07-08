@@ -237,8 +237,7 @@ What we strive to achieve is to make the situation simpler for the students whil
 
 Although we are applying our approach to other applications, we focus here on the MLCommons Cloudmask \cite{las-22-mlcommons-science} application that tries to identify the cloud cover from satellite images.
 
-The paper is structured as follows. First, we present important requirement aspects that influenced the design and implementation of our work (Section \ref{sec:requirements}).
-\TODO{is this previous sentence supposed to have more information about the structure of the paper?}
+The paper is structured as follows. First, we discuss the important requirement aspects that influenced the design and implementation of our work in Section \ref{sec:requirements}. We then provide an overview of related research in Section \ref{sec:related-research}. Next, we present the design of the workflow framework in Section~\ref{sec:design}. To demonstrate the practical use of the framework, we showcase its capabilities to specify task-based workflows in Section \ref{sec:task-workflow}, followed by a detailed discussion on how to interface with the workflows in Section \ref{sec:cloudmesh-cc-interfaces}. Additionally, we briefly outline other notable cloudmesh features in Section \ref{sec:cloudmesh-other}. Furthermore, we illustrate how cloudmesh can effectively coordinate hyperparameter-based workflows for the cloudmask application in Section \ref{sec:cloudmask-workflow}. Finally, we conclude our paper in Section \ref{sec:conclusion}.
 
 
 \section{Requirements}
@@ -370,6 +369,7 @@ workflow framework can be refreshed with the latest state.
 
 
 \section{Related Research}
+\label{sec:related-research}
 
 Many different workflow systems have been developed in the past. It is
 out of the scope of this document to present a complete overview of
@@ -417,6 +417,7 @@ of the workflows  \cite{www-snakemake,las-2004-gridant,www-pegasus,las-2007-swif
 
 
 \section{Design}
+\label{sec:design}
 
 To fulfill our requirements, we have developed a framework for
 workflow-controlled computing called Cloudmesh Compute Cluster,
@@ -501,14 +502,15 @@ The framework is managed as an open-source repository in GitHub and
 uses Python as the implementation language. The code is compatible
 with Windows, macOS, and Linux.
 
-It is crucial to note that in addition to this task parallel approach
-allowing us to integrate hybrid resources controlled by the user we
+It is crucial to note that, in addition to this task parallel approach
+allowing us to integrate hybrid resources controlled by the user, we
 also have the experiment executer which we describe in more detail in
 Section~\ref{sec:cloudmesh-sbatch}.
 
 We will first focus on our ability to specify task parallel workflows.
 
-\section{Specifying Task-based Workflows}\label{specifying-workflows}
+\section{Specifying Task-based Workflows}
+\label{sec:task-workflow}
 
 The workflow definition for cloudmesh is rather simple and intuitive.
 An example is provided in Figure~\ref{fig:workflow-example}. Here, a
@@ -717,6 +719,7 @@ Complete workflow \\
 
 
 \section{Cloudmesh-cc Interfaces}
+\label{sec:cloudmesh-cc-interfaces}
 
 In this section, we explain the various ways of interfacing with the workflow which is distributed in a Python package 
 {\em cloudmesh-cc} that includes all but the lower level of our design (see Figure~\ref{fig:arch} and the experiment executor which is implemented in a package called {\em cloudmesh-sbatch}). Interfaces to compute resources are, by design, able to be added via simple pip installs and (once installed through dynamic loading) integrated into the cloudmesh framework instantiation.
@@ -834,6 +837,7 @@ One can choose experiment parameters that best suit the application and benchmar
 While practically working with the system, we observed that students not using cloudmesh-sbatch often spend a significant amount of a semester on setting up a benchmark and replicating only a subset of the features that cloudmesh-sbatch provides. However, when a student uses it, we observed that the applications for which a template and configuration file has been designed reduced the on-ramp time to less than a day.
 
 \section{Other Cloudmesh Features}
+\label{sec:cloudmesh-other}
 
 Cloudmesh comes with a sophisticated package management system,
 allowing the integration of packages on demand targeting various providers
@@ -860,7 +864,7 @@ For benchmarking, we also have developed a special StopWatch library that measur
  
 
 \section{MLCommons Cloudmask Workflow}
-\label{cloudmask-workflow}
+\label{sec:cloudmask-workflow}
 
 We have applied the workflow system to a number of applications. To provide an easy-to-use application, we have utilized MNIST and documented its use in our GitHub. However, here we demonstrate the use applied to the MLCommons Science Group Cloudmask application.
 
@@ -991,6 +995,7 @@ Inference accuracy over sample as a spectrum
 
 
 \section{Conclusion}
+\label{sec:conclusion}
 
 We have designed and implemented a Hybrid Reusable Computational
 Analytics Workflow Management with the help of the cloudmesh component
