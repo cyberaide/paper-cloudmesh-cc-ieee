@@ -12,6 +12,8 @@
 \usepackage{xcolor}
 \usepackage{comment}
 \usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
 
 \PassOptionsToPackage{hyphens}{url}
 \pdfoutput=1
@@ -25,13 +27,19 @@
 %\newcommand{\FILE}[1]{\todo[inline,color=green!20]{File: #1}}
 \newcommand{\FILE}[1]{}
 
-
+\renewcommand\IEEEkeywordsname{Keywords}
+\newcommand{\orcidicon}[1]{\href{https://orcid.org/#1}{\includegraphics[width=9pt]{orcid_icon}}}
 
 % \usepackage{color}
-% \usepackage{listings}
+\usepackage{listings}
 % \usepackage{xcolor}
 % \usemintedstyle{trac}
 % \definecolor{mblue}{rgb}{0.27,0.33,0.53}
+
+\lstset{
+  basicstyle=\scriptsize\ttfamily,
+  breaklines=true
+}
 
 \definecolor{friendlybg}{HTML}{f0f0f0}
 \definecolor{lightgray}{rgb}{.9,.9,.9}
@@ -46,32 +54,29 @@ CyberTraining for Students and Technologies from Generation Z with the
 award numbers 1829704 and 2200409 and NIST 60NANB21D151T.}
 }
   
-\author{\IEEEauthorblockN{1\textsuperscript{st} Gregor von Laszewski}
+\author{\IEEEauthorblockN{1\textsuperscript{st} Gregor von Laszewski\textsuperscript{\href{https://orcid.org/0000-0001-9558-179X}{\includegraphics[height=9pt]{images/orcid_icon.png}}}}
 \IEEEauthorblockA{\textit{Biocomplexity Institute}\\
 \textit{University of Virginia}\\
 Charlottesville, VA 22911, USA \\
-laszewski@gmail.com \\
-0000-0001-9558-179X}
+laszewski@gmail.com}
 \and
-\IEEEauthorblockN{2\textsuperscript{nd} J.P. Fleischer}
+\IEEEauthorblockN{2\textsuperscript{nd} J.P. Fleischer\textsuperscript{\href{https://orcid.org/0000-0002-1102-1910}{\includegraphics[height=9pt]{images/orcid_icon.png}}}}
 \IEEEauthorblockA{\textit{Biocomplexity Institute}\\
 \textit{University of Virginia}\\
 Charlottesville, VA 22911, USA \\
-jacquespfleischer@gmail.com \\
-0000-0002-1102-1910}
+jacquespfleischer@gmail.com}
 \and
-\IEEEauthorblockN{3\textsuperscript{rd} Geoffrey C. Fox}
+\IEEEauthorblockN{3\textsuperscript{rd} Geoffrey C. Fox\textsuperscript{\href{https://orcid.org/0000-0003-1017-1391}{\includegraphics[height=9pt]{images/orcid_icon.png}}}}
 \IEEEauthorblockA{\textit{Biocomplexity Institute}\\
 \textit{University of Virginia}\\
 Charlottesville, VA, USA \\
-gcfexchange@gmail.com \\
-0000-0003-1017-1391}
+gcfexchange@gmail.com}
 \and
 \IEEEauthorblockN{4\textsuperscript{th} Juri Papay\\
 5\textsuperscript{th} Sam Jackson}
 \IEEEauthorblockA{\textit{Rutherford Appleton Laboratory}\\
 Harwell Campus\\
- Didcot, OX11 0QX, UK}
+Didcot, OX11 0QX, UK}
 }
 % samuel.jackson@stfc.ac.uk 
 
@@ -92,12 +97,12 @@ Harwell Campus\\
  approach while at the same time allowing to access to hybrid
  computational resources offered through the owner's computer, HPC
  computing centers, cloud resources, and distributed systems in
- general. The access to this framework includes a simple GUI for
+ general. Access to this framework includes a simple GUI for
  monitoring and managing the workflow, a REST service, a command line
  interface, as well as a Python interface. It also includes a template
- based batch management system that allows through configuration files
- to generate reproducable experiments while creating permutations over
- selected experiment parameters easily.  The resulting framework was
+ based batch management system that, through configuration files, easily allows 
+ for generation of reproducible experiments while creating permutations over
+ selected experiment parameters. The resulting framework was
  developed for several examples targeting benchmarks of AI
  applications on hybrid compute resources and as an educational tool
  for teaching scientists and students sophisticated concepts to
@@ -113,10 +118,10 @@ Harwell Campus\\
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+high performance computing, batch queue, service
 \end{IEEEkeywords}
 
-\section{Introduction}
+% \section{Introduction}
 
 
 
@@ -152,7 +157,7 @@ component, formatting, style, styling, insert
 %\ccsdesc[500]{Computer systems organization~Cloud computing}
 %\ccsdesc[500]{Software and its engineering~Distributed systems organizing principles}
 
-\keywords{high performance computing, batch queue, service}
+% \keywords{high performance computing, batch queue, service}
 
 
 
@@ -161,7 +166,7 @@ component, formatting, style, styling, insert
 %\received[accepted]{5 June 2009}
 
 % set page numbers
-\settopmatter{printfolios=true}
+% \settopmatter{printfolios=true}
 
 \maketitle
 
@@ -184,9 +189,9 @@ The Science Working Group within MLCommons is primarily focused on advancing the
 As part of this activity, we are collaborating with a large number of researchers, including aspiring researchers from various academic institutions. However, we are confronted with multiple challenges:
 (a) Many participants are not sufficiently familiar with using high-performance computing (HPC) or other resources to conduct reproducible experiments reliably.
 (b) When dealing with different compute resources, special system configurations need to be developed for each resource, and these configurations may even vary from user to user on the system.
-(c) creating a reproducable experiment is often out of scope as the focus for beginning student that have barely the time to run and understand the application during a semester activity.
+(c) creating a reproducible experiment is often out of scope as the focus for beginning students that barely have the time to run and understand the application during a semester activity.
 
-What we strive to achieve is to make the situation simpler for the students while working at the same time towards the implementation of the FAIR principle \cite{www-fair} for the targeted MLCommons Science applications adressing the previous mentioned issues. 
+What we strive to achieve is to make the situation simpler for the students while working at the same time towards the implementation of the FAIR principle \cite{www-fair} for the targeted MLCommons Science applications addressing the previous mentioned issues. 
 
 Although we are applying our approach on other applications, we focus here on the MLCommons Cloudmask \cite{las-22-mlcommons-science} application that tries to identify the cloudcover from satelite images.
 
@@ -200,9 +205,9 @@ We list the requirements that influence our design and describe in more detail r
 
 \subsection{Reusability Requirements}
 
-\subsubsection{Reusable computational analytics}
+\subsubsection{Reusable Computational Analytics}
 
-Reusable computational analytics} (RCA) focuses on the creation
+Reusable computational analytics (RCA) focuses on the creation
 of reusable programs, patterns, and services to conduct analytics
 tasks that are part of the scientific discovery process. RCA service
 need varies widely and may include multi-scale hardware resources as
@@ -277,7 +282,7 @@ big to be used in introductory undergraduate and masters activities.
 However, the framework should be capable enough to also support
 research projects.
 
-\subsubsection{Workflow specification} The specification of the workflow must
+\subsubsection{Workflow Specification} The specification of the workflow must
 be simple.  From the past we have learned that the introduction of
 programming control components such as loops, and conditions, in
 addition to DAGs, is essential to provide maximum flexibility.
@@ -303,7 +308,7 @@ REST API seems very well-suited.
 have an OpenAPI interface. This allows the integration via 3rd party
 tools into other frameworks and languages, if desired.
 
-\subsubsection{Hybrid multicloud Providers} The service must be able to be
+\subsubsection{Hybrid Multicloud Providers} The service must be able to be
 deployable on an on-premise local computer or various cloud providers.
 
 \subsubsection{Generalized Job Interface} The framework must be able to
@@ -312,7 +317,7 @@ the support of ssh, batch queues such as SLURM \cite{www-slurm} and
 LSF  \cite{www-lsf}, and local
 compute resources including shell scripts, as well as support for WSL.
 
-\subsubsection{Support of various Operating Systems} The framework must be
+\subsubsection{Support of Various Operating Systems} The framework must be
 runnable on various client operating systems including Linux, macOS,
 Windows.
 
@@ -333,12 +338,13 @@ workflow framework can be refreshed with the latest state.
 
 Many different workflow systems have been developed in the past. It is
 out of the scope of this document to present a complete overview of
-all the different systems. Instead, list some of the systems and organize them in various categories within this section. A more detailed analysis is available at \cite{ }. One of the systems that has been developed is MLCube \cite{} developed within MLCommons. Similar to our framework is uses  YAML specification for organizing, running, and sharing machine learning experiments. It attempts to standardize the 
+all the different systems. Instead, we list some of the systems and organize them in various categories within this section. A more detailed analysis is available
+at \cite{las-22-arxiv-workflow-cc}. One of the systems that has been developed is MLCube \cite{www-mlcube} developed within MLCommons. Similar to our framework, it uses YAML specification for organizing, running, and sharing machine learning experiments. It attempts to standardize the 
  format for defining and packaging machine learning projects, including their code, dependencies, datasets, and configurations. Through this it aims to 
  facilitate reproducibility and portability of machine learning experiments by encapsulating all the necessary components in a self-contained and portable container. Our system is needed as it provides both an enhancement on top of MLCube, as well as on the bottom.
- Thus, we could integrate tools and services we developed within an MLCube specification, but also use MLCube within our framework. One of the features we try to emphasize is that we do not distribute a container in general, but just the description of how the container can be created either in Docker or singularity. This is important when the customization of the experiment and its applications is in the foreground. Furthermore, at time of writing the support of MLCube for singularity was not supporting our locally available resources (on which docker is not supported) so we could not utilize it. As a result our team has proposed changes to MLCube that will eventually result in a usable singularity port. 
+ Thus, we could integrate tools and services we developed within an MLCube specification, but also use MLCube within our framework. One of the features we try to emphasize is that we do not distribute a container in general, but just the description of how the container can be created either in Docker or Singularity. This is important when the customization of the experiment and its applications is in the foreground. Furthermore, at the time of writing, the support of MLCube for Singularity was not supporting our locally available resources (on which docker is not supported) so we could not utilize it. As a result, our team has proposed changes to MLCube that will eventually result in a usable Singularity port. 
  
-Next, we list the various categories of related workflow systems while augmenting. By no means this list is complete but represents a selected number of efforts. 
+Next, we list the various categories of related workflow systems while augmenting. By no means is this list complete, but it represents a selected number of efforts. 
 
 \subsubsection{ Batch parallelism} Long-running jobs on HPC systems are coordinated through
 Batch services  \cite{www-lsf,www-slurm,www-cloudmesh-manual,www-airflow,las-1996-thesis,las-1999-loosely}.
@@ -380,20 +386,19 @@ of the workflows  \cite{www-snakemake,las-2004-gridant,www-pegasus,las-2007-swif
 To fulfill our requirements, we have developed a framework for
 workflow-controlled computing called Cloudmesh compute cluster,
 otherwise referred to as {\em Cloudmesh-cc}. It is enhanced by a
-specialize experiment executor allowing to easily specify parameter
-enhanced workflow specifications. The architecture of the
+specialized experiment executor, allowing to easily specify parameter-enhanced workflow specifications. The architecture of the
 framework is depicted in Figure~\ref{fig:arch}.
 
 \begin{figure}[htb]
-{\centering
+% figure is somewhat off-center so nudging it to the right - JPF
+\hspace{5px}
 \includegraphics[width=1.0\columnwidth]{images/cloudmesh-cc-arch.pdf}
-}
 \caption{Architecture of the Framework}\label{fig:arch}
 \end{figure}
 
 The framework is based on a layered architecture so it can be improved
-and expanded on at each layer. We distinguish two kinds of users,
-developers and end users, that define their workflows to run on
+and expanded on at each layer. We distinguish two kinds of users---developers 
+and end users---that define their workflows to run on
 compute resources. For the end user, we provide a command line and a
 very simple browser interface. Simplicity is important as it does not
 require spending exorbitant amounts of time to learn how to use the
@@ -404,13 +409,13 @@ deployment could also be conducted while assuring that proper
 authentication and authorization are used. This is easily possible as
 we use a well-known REST service framework (FastAPI) that can
 integrate with common security frameworks to secure services. The API,
-workflow specification, command line interface, and browser are well
-documented with the help of Sphinx and OpenAPI.
+workflow specification, command line interface, and browser are 
+well-documented with the help of Sphinx and OpenAPI.
 
 The workflow specification plays an important role in not only
 defining a workflow but also keeping the status of a currently
 executed workflow. Here we have completely separated the status of the
-workflow and synchronize the state of the workflow with pull requests
+workflow and synchronized the state of the workflow with pull requests
 to the service that executes the computation. This allows the system
 to be shut down at any time while the running jobs are completely
 independent of the client application accessing the state. Thus, the
@@ -464,11 +469,11 @@ with Windows, macOS, and Linux.
 It is crucial to note that in addition to this task parallel approach
 allowing us to integrate hybrid resources controlled by the user we
 also have the experiment executer which we describe in more detail in
-Section \label{sec:cloudmesh-sbatch}.
+Section~\ref{sec:cloudmesh-sbatch}.
 
 We will first focus on our ability to specify task parallel workflows.
 
-\section{Specifying Workflows}\label{specifying-workflows}
+\section{Specifying Task-based Workflows}\label{specifying-workflows}
 
 The workflow definition for cloudmesh is rather simple and intuitive.
 An example is provided in Figure~\ref{fig:workflow-example}. Here, a
@@ -477,13 +482,13 @@ DAG with three nodes are specified ( $start \rightarrow fetch-data
 example the
 workflow executes three scripts
 (test-[fetch-data,compute,analyze].sh). It contains a specific start
-and end node. This is a typical usepattern for DL related analysis tasks. Dependencies can easily be specified in human readable format whil eusing the node name. The nodenames containg easy to manage information such as the name of the node, a label that is uused to print the nodes progress. The label is may contain variables that can be custom designed and adde to the workflow. Default variables that are frequently used include {\em name}, \em progress}, and {\em time}.  Nodes can also have a type indication if it represents
-a python, sh,
-jupyter, or slurm task. Additionally for python one can specify the virtual environment with venv allowing multiple venvs to be used in the same workflow.
+and end node. This is a typical use pattern for DL-related analysis tasks. Dependencies can easily be specified in human-readable format while using the node name. The nodenames contain easy-to-manage information such as the name of the node, a label that is used to print the node's progress. The label may contain variables that can be custom designed and added to the workflow. Default variables that are frequently used include {\em name}, {\em progress}, and {\em now}.  Nodes can also have a type indication if it represents
+a Python, sh,
+Jupyter, or Slurm task. Additionally for Python, one can specify the virtual environment with venv, allowing multiple venvs to be used in the same workflow.
 
 The node attributes are listed and summarized 
 in
-Table~\ref{tab:node-attributes} while details about the labels are listed in Table \ref{fig:labels-list}. As the labels and styling are simple to use but have a powerful impact on the display of the workflow we document some of its features in the next sections.
+Table~\ref{tab:node-attributes}, while details about the labels are listed in Table \ref{fig:labels-list}. As the labels and styling are simple to use but have a powerful impact on the display of the workflow we document some of its features in the next sections.
 
 \begin{figure}[htb]
 {\scriptsize
@@ -526,6 +531,7 @@ workflow:
 \end{figure}
 
 \begin{table}[htb]
+\centering
 \caption{Node attributes.}\label{tab:node-attributes}
 
 
@@ -599,191 +605,52 @@ script &  The script name to be executed \\
 
 One particular useful attribute is that of a label. If no label is
 used, the name of the node is used as the label. However, if a label
-is specified, one can also use attribute names and timers to create
+is specified, one can use attribute names and timers to create
 labels with implicit state information. This is done by introducing
-variables through curly braces when defining the labels inside the
-label defined in nodes within the YAML workflow file.
-
-For example, a label could be defined as showcased in
-Figure~\ref{fig:label-job}. The appropriate values will be dynamically
-replaced during the execution of the workflow.  This creates a node on
-the graph that looks similar to the node showcased in
-Figure~\ref{fig:label-node}.
-
-Initially, the created and elapsed labels are {\scriptsize\texttt N/A}
-if the workflow has not yet started, but they are replaced during
-runtime. This can be observed by running a workflow in graph view in
-the web interface.
-
-In this format, we must use two dashes {\scriptsize\texttt --} to
-separate the various components. However, when rendered, the dashes
-will be replaced with a colon. Thus you can easily use years, months,
-days, hours, minutes, and seconds can be arranged as desired, as long
-as the corresponding letters remain consistent:
-({\scriptsize\texttt \%Y} 
-{\scriptsize\texttt \%m}
-{\scriptsize\texttt \%d} 
-{\scriptsize\texttt \%H} 
-{\scriptsize\texttt \%M} 
-{\scriptsize\texttt \%S}).
-The time format must be specified immediately following the period
-after a format-supported time variable.  If no format is specified
-following the period after the variable, the datetime defaults to the
-American format.  See Table~\ref{fig:labels-list} for a summary of
-options for defining time based attributed to being replaced in the
-label.
-
-
-Nodes can be customized in various ways within the workflow
-configuration YAML file, including their job types (python, sh,
-jupyter, or slurm), their virtual Python environment (by specifying
-{\scriptsize\texttt venv}), their appearance on the graph, and other
-characteristics.
-
-
-\begin{figure}[htb]
-\smallskip
-    {\scriptsize
-    \begin{verbatim}
-    workflow:
-      nodes:
-        start:
-          label: 'start\n
-                  Created={created.%Y/%m/%d, %H--%M--%S}\n
-                  Workflow Started={t0.%Y/%m/%d, %H--%M--%S}\n
-                  Now={now.%Y/%m/%d, %H--%M--%S}\n
-                  Elapsed={dt0.%M--%S}'
-    \end{verbatim}}
-    \caption{Example of job label in YAML configuration file.}
-    \label{fig:label-job}
-
-\centering
-\includegraphics[width=0.7\columnwidth]{images/labelmaker-example.png}
-\caption{An example node with labels.}\label{fig:label-node}
-\end{figure}
-
-
+variables through curly braces. This is of special interest as our DL benchmarks may run a long time and we may want to monitor the progress. 
+Table~\ref{fig:labels-list} shows the many useful time-based names one can use in a label. When such a name is used, it can also specify the format of the timer as indicated in an example in the table that shows the default format.
 
 \subsection{Shapes and Styles}
 
-As we use graphviz for rendering, we have also added the ability to
-change the shape and style of each node in the graph. The
-available \href{https://graphviz.org/doc/info/shapes.html}{shapes}
-and \href{https://graphviz.org/docs/attr-types/style/}{styles} are
-listed in the Graphviz documentation \cite{www-graphviz}.
-
-Figure~\ref{fig:shape-style-yaml} is an example of a node in YAML
-format that uses a box shape and an empty style. The empty style
-defaults to \verb|filled|, which allows the node to change
-color when the job status is changed.
-
-
-\begin{figure}[htb]
-{\scriptsize
-\begin{verbatim}
-    workflow:
-      nodes:
-        start:
-          label: 'start\n
-                  Created={created.%Y/%m/%d, %H--%M--%S}\n
-                  Workflow Started={t0.}\n
-                  Elapsed={dt0.}'
-          kind: local
-          user: grey
-          host: local
-          status: ready
-          exec: 'echo hello'
-          name: start
-          shape: box
-          style: ''
-\end{verbatim}}
-\caption{Example of YAML config file that uses shape and style.}
-\label{fig:shape-style-yaml}
-\end{figure}
+Presently, we use Graphviz \cite{www-graphviz} for rendering the workflow. Thus we also integrated the ability to define attributes provided by Graphviz such as shapes and styles. The full palette of Graphviz features in regards to styles and styles is supported.
 
 \subsection{Reporting Progress}\label{reporting-progress}
 
-When running scripts/jobs inside a workflow, the scripts must leverage
-some format of {\em cloudmesh.progress} to notify the user and the
-backend client monitoring system. If progress is not reported, the
-Workflow class cannot tell if the scripts are done.
-
-The examples that are provided with cloudmesh-cc are already augmented
-with {\em cloudmesh.progress}. Thus, if a user is running jobs through
-cloudmesh cc workflows, they must integrate progress strings into the
-log files that are monitored. This is available for shell, batch,
-Python, and Jupyter scripts.
-
-For shell and Slurm scripts, the script must contain a progress update
-lines as follows:
-
+When running jobs inside a Cloudmesh Workflow, the scripts called can use a standard format provided by 
+{\em cloudmesh.progress} to notify the user and the
+backend client monitoring system. This is available in Python, shell, and any other framework as it can be implemented using a write to STDOUT. Such progress is augmented by an integer which indicates 0-100\% progress.
+A trivial example encapsulating a machine learning program is shown next.
 
 {\scriptsize
-\begin{verbatim}
+\begin{Verbatim}[breaklines=true]
   echo "# cloudmesh status=running progress=1 pid=$$"
-\end{verbatim}
-}
-
-at the beginning of the script, and
-
-{\scriptsize
-\begin{verbatim}
+  singularity exec --nv ./cloudmask.sif cloudmask.py --config config.yaml 
   echo "# cloudmesh status=done progress=100 pid=$$"
-\end{verbatim}
+\end{Verbatim}
 }
 
-at the end of the script.
-
-For Python scripts and Jupyter notebooks, it is easiest to use our
-built-in progress method and import it from the cloudmesh.common
-module as the example in Figure~\ref{fig:py-progress}. 
-
-
-\begin{figure}[htb]
+For Python scripts and Jupyter notebooks, a built-in function is provided as shown next.
 
 {\scriptsize
-\begin{verbatim}
+\begin{Verbatim}[breaklines=true]
   from cloudmesh.common.StopWatch import progress
   from cloudmesh.common.Shell import Shell
-  filename = Shell.map_filename('./py_script.log').path
+  filename = './cloudmesh-log-file.log'
   progress(progress=1, filename=filename)
   ... execute your analysis here ...
   progress(progress=100, filename=filename)
-\end{verbatim}
+\end{Verbatim}
 }
 
-\caption{Progress report with the cloudmesh Python API.}
-\label{fig:py-progress}
-
-\end{figure}
-
-
-When recording progress, the progress should be ascending between 1
-and 100. The last value must report 100 or the node will not be
-completed and the workflow gets stuck. The output of the progress will
-be written into a {\scriptsize \verb|{workflowname}.log|} file that
-will be probed continuously by the client to report the progress to
-the user.
+Obviously, such progress can be embedded in tools such as tqdm to automatize the logging and help trivial integration with the sophisticated Python ecosystem.
 
 \subsection{Generating Progress Image as Graph}
 
-The framework has a built-in capability to export the progress of the
+The framework has a built-in capability to visualize and export the progress of the
 workflow in a DAG.
 
 In Figure~\ref{fig:workflow-process}, we depict a simple example
-workflow to be executed, where each task is executed sequentially. The
-status of the execution can be displayed as a table or as a graph. In
-Figure~\ref{fig:workflow-process}, we showcase how the graph changes
-its appearance over time while using no label in the start and end
-node and a defined label in the nodes for fetch-data, compute, and
-analyze:
-
-
-{\scriptsize
-\begin{verbatim}
-  label: "{name}\nprogress={progress}"
-\end{verbatim}
-}
+of a workflow that shows the progression of the status over time. Such simple visualization naturally helps to communicate the status and showcases it in the context of the entire workflow. This is often far superior to just monitoring log entries in a file.
 
 \begin{figure}[htb]
 \resizebox{1.0\columnwidth}{!}{
@@ -812,373 +679,23 @@ Complete workflow \\
 \end{figure}
 
 
-
-
-
-% \input{interfaces.tex}
-
-\FILE{interfaces.tex}
-
 \section{Cloudmesh-cc Interfaces}
 
-In this section, we explain the various ways of interfacing with
-cloudmesh-cc that are part of our design (see Figure~\ref{fig:arch}).
+In this section, we explain the various ways of interfacing with the workflow which is distributed in a Python package 
+{\em cloudmesh-cc} that includes all but the lower level of our design (see Figure~\ref{fig:arch} and the experiment executor which is implemented in a package called {\em cloudmesh-sbatch}. Interfaces to compute resources are, by design, able to be added via simple pip installs and (once installed through dynamic loading) integrated into the cloudmesh framework instantiation.
 
-It is important to note that we have a {\em command line mode} that
-interfaces directly with the backends while not requiring a
-service. This includes an easy-to-use Python API.
-
-In addition, we have used this API to implement a {\em service mode}, so we can
-stand up a REST service as well as a GUI that can be accessed through a Web browser.
+It is important to note that we have also a {\em command line mode} that interfaces directly with the backends while not requiring a service. All features are available as PythonAPI. In addition, we have used this API to implement a {\em service}, that allows us to stand up a REST service as well as a GUI that can be accessed through a Web browser.
 Please note that the service mode can also be accessed through the command line
-in a terminal. To distinguish how we operate cloudmesh-cc, we use the term
-{\em mode} to delineate it from a command that is entered in a terminal to
-query the status of the workflow.
-
+in a terminal and native tools to display the workflow. 
 We will now discuss these interfaces in more detail and also showcase
 how we can access them.
+To support direct execution on the command line we also provide not only a command line interface but leverage the cloudmesh command shell enabling us to interact with the system from the cloudmesh shell on-demand. 
 
+Hence our work can be integrated into many other frameworks or tools some of which are listed in the Related Research section. Details of these APIs go beyond the purpose of this document and are summarized in \cite{las-22-arxiv-workflow-cc}.
 
-\subsection{Python API}
+In addition to the aforementioned interfaces, we also provide a simple Web GUI interface that allows a workflow to be administered and monitored through the GUI. At this time, it contains all the needed functionality to execute and monitor a workflow through a Web Browser.
 
-Cloudmesh-cc is implemented in Python. Extensive documentation is
-available in GitHub and, using GitHub Actions, it is automatically
-updated~\cite{github-cloudmesh-cc}. We distinguish two main classes
-that are easy to use. The first is a {\em Job class} that can be
-adapted to include new computational resource types for executing
-jobs. The second is a {\em Workflow class} to coordinate the execution
-of multiple jobs. Selected methods of the Job class include are listed
-in Figure~\ref{fig:code-job}. Important to note is that the code for
-the scripts are all managed locally, and a synchronization step is
-invoked prior to one running the job to assure that the latest script
-and code to be executed on the compute resource is available.
-
-The most important part of using the Workflow Python API is showcased
-in Figure~\ref{fig:code-job}, where we explain how easy it is to set
-up a workflow with the Python API.
-
-\begin{figure}[!h]
-{\scriptsize
-\begin{Verbatim}
-class Job:
-   ...
-   def clear():
-      # Clear job progress.
-   def create(filename=None, script=None, exec=None):
-      # Create a template for the script with progress.
-   def get_log(refresh=True):
-      # Get the log of the job.
-   def get_pid(refresh=False):
-      # Get the pid that the job is running within 
-         determined by the compute resource it is 
-         running on.
-   def get_progress(refresh=False):
-       # Get the progress of the job from the compute 
-       resource.
-   def get_status(refresh=False):
-       # Get the status of the job.
-   def kill():
-       # Kill the job.
-   def run():
-       # Run the job.
-   def sync():
-       # Synchronise the current directory with the remote. 
-          Copies the shell script to the experiment directory 
-          and ensures that the file is copied with the sync 
-          command.
-   def watch(period=10):
-       # Watch the job and check for changes in the given 
-          period.
-\end{Verbatim}}
-
-\caption{Pseudo code for the Job class with selected methods.}
-\label{fig:code-job}
-
-\bigskip
-{\scriptsize
-\begin{verbatim}
-class Workflow:
-    ...
-    def add_dependencies(dependency):
-        # Add job dependency to the workflow (and the graph).
-    def add_dependency(source, destination):
-        # Add job dependency to the workflow (and the graph).
-    def add_job( ... ):
-        # Add job to the workflow with appropriate parameters.
-    def display(filename=None, name='workflow', first=True):
-        # Show the graph of the workflow.
-    def job(name):
-        # Return the details of a job within the workflow.
-    def load(filename, clear=True):
-        # Load the workflow.
-    def remove_job(name, state=False):
-        # Remove a particular job from the workflow.
-    def remove_workflow():
-        # Delete workflow from the local file system.
-    def run_parallel( ... ):
-        # Run a workflow in a parallel fashion.
-    def run_topo(order=None, ...,  filename=None):
-        # Run the workflow in a topological order.
-    def save(filename=None):
-        # Save the workflow.
-    def save_with_state(filename, stdout=False):
-        # Save the workflow with state.
-    def sequential_order():
-        # Return a list of the topological order of 
-          the workflow.
-    property table:
-        # Return a table of the workflow.
-    def update_progress(name):
-        # Manually update the progress of a job according 
-          to its log file.
-    def update_status(name, status):
-        # Manually update a job’s status.
-\end{verbatim}
-}
-
-\caption{Pseudo code for the Job class with selected methods.}
-\label{fig:code-workflow}
-\end{figure}
-
-
-
-\begin{figure}[htb]
-{\scriptsize
-\begin{verbatim}
-    w = Workflow(name="workflow-analyze")
-    # load a preexisting workflow
-    # w.load(filename="source.yaml")
-    
-    # add jobs and dependencies explicitly
-    w.add_job(name="fetch-data",
-              exec="hostname",
-              host="supercomputer-a", # defined in .ssh
-              label="{name}\nprogress={progress}",
-              kind="local",
-              status="ready",
-              progress=0)
-    w.add_job(name="compute", command="... TBD ...")
-    w.add_job(name="analyze", command="... TBD ...")
-    w.add_dependencies(
-              dependency="start,fetch-data,compute,analyze")
-    w.run_topo()
-\end{verbatim}
-}
-\caption{Pseudo code for the Job class with selected methods.}
-\label{fig:code-workflow-example}
-
-\bigskip
-
-{\scriptsize
-\begin{verbatim}
-      cms cc workflow add [--name=NAME] [--job=JOB] ARGS...
-      cms cc workflow add [--name=NAME] --filename=FILENAME
-      cms cc workflow delete [--name=NAME] [--job=JOB]
-      cms cc workflow list [--name=NAME] [--job=JOB]
-      cms cc workflow run [--name=NAME] 
-                          [--job=JOB] 
-                          [--filename=FILENAME]
-      cms cc workflow [--name=NAME] --dependencies=DEPENDENCIES
-      cms cc workflow status --name=NAME [--output=OUTPUT]
-      cms cc workflow graph --name=NAME
-\end{verbatim}
-}
-
-\caption{Command line interface to the workflow in terminal mode.}
-\label{fig:code-workflow-commandline}
-
-\bigskip
-
-{\scriptsize
-\begin{verbatim}
-      cms cc start [-c] [--reload] [--host=HOST] [--port=PORT]
-      cms cc stop
-      cms cc status
-      cms cc workflow service add [--name=NAME] FILENAME
-      cms cc workflow service list [--name=NAME] [--job=JOB]
-      cms cc workflow service add [--name=NAME] [--job=JOB] ARGS...
-      cms cc workflow service run --name=NAME
-\end{verbatim}
-}
-
-\caption{Command line interface to the workflow in service mode.}
-\label{fig:code-workflow-service-commandline}.
-
-% \bigskip
-
-{\centering
-\includegraphics[width=0.52\columnwidth]{images/upload_api.png}
-}
-\caption{Browser API GUI for Cloudmesh Compute Cluster.}
-
-\label{fig:openapi}
-
-\end{figure}
-
-
-\subsection{Command Line Mode}
-
-The command line mode is an implementation that does not use a backend
-service. It runs in the terminal until the workflow is completed. All
-states of the jobs are managed on the compute service on which the job
-is run and the status is replicated into the client on demand. This
-allows easy reporting of the status through a table and a graph
-display using client-based rendering tools. The various commands to
-interact with workflows on the command line are shown in
-Figure~\ref{fig:code-workflow-commandline}.
-
-
-\subsection{Service Mode}
-
-The Python API has been used to implement a REST service. To easily
-interact with the REST service we have also added a couple of
-convenient commands one can issue from a terminal. They are listed in
-Figure~\ref{fig:code-workflow-service-commandline}. It is clear from
-these methods that starting, stopping, and getting the status of the
-service is very easy. In contrast to the command line mode, this
-service mode has an additional keyword {\em service} to interact with
-the rest service.
-
-Certainly one can also directly interact with the REST service API for
-this service. For ease of use, we have exposed the interface through
-an OpenAPI specification that is available to the user as shown in
-Figure~\ref{fig:openapi}.
-
-Thus, other tools such as curl or other languages supporting URL
-requests can be used. A curl example to list the workflow
-specifications uploaded to the service is as follows:
-
-{\scriptsize
-\begin{verbatim}
-$ curl -X 'GET' 'http://127.0.0.1:8000/workflows' \
-       -H 'accept: application/json'
-\end{verbatim}}
-% $
-
-As we use a REST service, we can also easily upload the workflow
-through a Python-enabled REST call. We will use Python requests to
-demonstrate this upload feature. To showcase the various ways to
-access the service, we focus on uploading a tar file that contains the
-workflow as well as the scripts or programs used in the workflow. The
-tar file is called {\em workflow-example.tar}.
-
-To also allow programming against the REST service in Python, a Python
-API similar to that of the command line mode is
-available. Figure~\ref{fig:code-workflow-rest-commandline} showcases
-this API.
-
-To simplify interaction with the REST service, we have created a special
-{\em RESTWorkflow class} that is similar to the command module API,
-but instead uses the REST interface to the service rather than direct
-communication with the command client API.
-
-The user can also simply use the requests module in Python to
-interface with the API. Figure~\ref{fig:code-workflow-requests}
-demonstrates how to use requests to upload a workflow by using an
-archive file that contains the YAML configuration file and the
-scripts.
-
-\begin{figure}[t]
-{\scriptsize
-\begin{verbatim}
-class RESTWorkflow
-    ...
-    def add_job(workflow_name, **kwargs):
-        """Add a job to the workflow."""
-    def delete_workflow(workflow_name, job_name=None):
-        """Delete a workflow by using REST."""
-    def get_workflow(workflow_name, job_name=None):
-        """Retrieve a workflow by using REST."""
-    def list_workflows():
-        """Return a list of workflows that is found within
-           the server."""
-    def run_workflow( ... ):
-        """Run a workflow by using REST."""
-    def upload_workflow( ... ):
-        """Upload a workflow by using REST."""
-\end{verbatim}
-}
-
-\caption{Pseudo code for the Job class with selected methods.}
-\label{fig:code-workflow-rest-commandline}
-
-\bigskip
-{\scriptsize
-\begin{verbatim}
-  import requests
-  r = requests.post(
-      'http://127.0.0.1:8000/workflow?'\
-      'archive=workflow-example.tar')
-  print(r.text)
-\end{verbatim}
-}
-
-\caption{Upload to the REST service with Python requests.}
-\label{fig:code-workflow-requests}
-
-\bigskip
-
-{\scriptsize
-\begin{verbatim}
-  $ curl -X 'POST' 'http://127.0.0.1:8000/ 
-                    workflow?archive=workflow-example.tar'
-         -H 'accept: application/json' -d ''
-\end{verbatim}
-}% $
-
-\caption{Upload to the REST service with curl.}
-\label{fig:code-workflow-curl}
-
-\end{figure}
-
-
-\subsection{Webservice GUI}
-
-A convenient Web service is included in Cloudmesh cc. It allows the
-user to manage and visualize the status of workflows through a Web
-browser interface. At this time, the focus is that the interface can
-be run by a single user on the local machine. This allows remote
-executions of workflow nodes run completely independent from cloudmesh
-cc and interaction is possible in asynchronous mode.
-
-As the service is using also an OpenAPI 2.0 specification, the
-workflow can also be uploaded implicitly through the specification
-GUI. Navigate to {\scriptsize \texttt{http://127.0.0.1:8000/docs}} and
-use the POST Upload method. Then click {\scriptsize \texttt{Try\ it\ out}}
-and enter the location of the tar file, followed by clicking
-{\scriptsize \texttt{Execute}}.
-
-Obviously, any REST service or REST API can be used, allowing the user
-to interface to it from different programming languages or frameworks.
-
-The web server provides a more customizable, easy-to-use interface for
-the Workflow class which can be started, viewed, and stopped with the
-appropriate command suc as
-
-{\scriptsize
-\begin{verbatim}
-  $ cms cc start
-  $ cms cc view
-  $ cms cc stop
-\end{verbatim}}
-%$
-
-The view can also be achieved by opening the 
-link \newline {\scriptsize \texttt{http://127.0.0.1:8000/}}.
-
-The browser provides an interface to view preexisting workflows in
-both a DataTable format and as a graph format. Both views will update
-in a live, automatic fashion as the workflows are run, reporting
-dynamic job status and progress.
-
-For a quick and easy example of leveraging this GUI interface, click
-on the Example tab in the left-hand sidebar. Then, a workflow-example
-will appear underneath Workflows. Click on the workflow-example and
-run the workflow by clicking the green Run button in the top-right. As
-the workflow runs, the user is able to click on the Graph button to
-view the graph interface (see Figure~\ref{fig:graph}) and back to the
-Table button for the table interface (see Figure~\ref{fig:table}), as
-desired, to view the workflow's progression.
+Figure \ref{fig:table-view} shows the table view of a possible cloudmask workflow, while \label{fig:graph-view} shows the graph view. During execution, the information in the views will be automatically updated.
 
 
 \begin{figure}[htb]
@@ -1186,7 +703,8 @@ desired, to view the workflow's progression.
   \includegraphics[width=1.0\columnwidth]{images/table-cloudmask-workflow.png}
 }
 \vspace{0.0cm}
-\caption{Cloudmesh cc workflow table view.}\label{fig:table}
+\caption{Cloudmesh cc workflow table view.}
+\label{fig:table-view}
 
 \bigskip
 {\centering
@@ -1194,70 +712,89 @@ desired, to view the workflow's progression.
  }
 \vspace{0.0cm}
  \caption{Cloudmesh cc workflow graph view.}
+\label{fig:graph-view}
 
-\label{fig:graph}
 \end{figure}
 
 
-
-\subsection{Run the workflow}\label{run-the-workflow}
-
-The workflow can be run easily via the GUI. We added a special set of
-buttons to the workflow table and graph display to simplify running of
-the workflow. Certainly, the workflow can also be activated while
-calling the appropriate REST call, either through Python, the OpenAPI
-docs page, or, for example, a curl call.
-Figures~\ref{fig:workflow-run-a}-\ref{fig:workflow-run-c}
-showcase various methods to run the example workflow, which is called
-{\em workflow-example}.
-
+\subsection{Cloudmesh-sbatch}
+\label{sec:cloudmesh-sbatch}
 
 \begin{figure}[htb]
-
-{\scriptsize\begin{verbatim}
-  $ curl -X 'GET' 'http://127.0.0.1:8000/
-                   workflow/run/workflow-example?show=True'
-         -H 'accept: application/json'
-\end{verbatim}}% $
-
-\caption{Running the example workflow with curl.}
-\label{fig:workflow-run-a}
-\bigskip
-
-{\scriptsize\begin{verbatim}
-  from cloudmesh.cc.workflowrest import RESTWorkflow
-  rest = RESTWorkflow()
-  result = rest.run_workflow('workflow-example')
-\end{verbatim}}
-
-\caption{Running the example workflow with cloudmesh RESTWorkflow API.}
-\label{fig:workflow-run-b}
-\bigskip
-
-{\scriptsize\begin{verbatim}
-  import requests
-  url = 'http://127.0.0.1:8000/workflow/run/'\
-        'workflow-example?show=True'
-  r = requests.get(url)
-  print(r)
-\end{verbatim}}
-
-\caption{Running the example workflow with requests API.}
-\label{fig:workflow-run-c}
+    \centering\includegraphics[width=1.0\columnwidth]{images/cloudmesh-sbatch-new}
+    
+    \caption{Experiment management workflow architecture design of cloudmesh-sbatch.}
+    \label{fig:cc-2}
 
 \end{figure}
 
 
+\subsubsection{Specifying Experiment-Parameter-based Workflows}
+\label{sec:workflow-sbatch}
 
+In traditional machine learning workflows, hyperparameter tuning and configuration are key elements in assessing and optimizing the performance of models. However, scaling hyperparameters for highly parallel execution with heterogeneous hardware is complex.
 
+Cloudmesh-sbatch is a hyperparameter and configuration management toolkit designed to address the generation of batch jobs with a consistent and configurable interface based on hyperparameter values across multiple development toolchains. One of its functions is to create batch jobs based on parameterized job specifications and configuration files.  As it is integrated with cloudmesh, it can leverage a variety of queuing systems and submission commands through abstractions. Currently, we provide interfaces to Slurm, LSF, and ssh as these are the frameworks used on HPC and local resources that we have access to. However, it would be possible to integrate others due to the extensible design of our framework.
 
+The architecture of the cloudmesh-sbatch framework is depicted in Figure \ref{fig:cc-2} and also demonstrates that it integrates with our previous cloudmesh-cc component.
 
+Cloudmesh-sbatch generates a cartesian product (permutation) of hyperparameter to form independent {\it experiment} execution profiles, making it trivial to scale an experiment from one execution to thousands just by changing the configuration file.  The resulting output provides a generated shell script that is custom created for the particular queuing system used on the resource. Within the configuration file for such a resource, we also use a YAML configuration file representing the specific hyperparameters.  By managing many highly configurable jobs with cloudmesh-sbatch, the focus is placed on what hyperparameters to use for experiments and reducing the possibility of human error when running experiments over a range of hyperparameters. It is important to note that cloudmesh-sbatch is:
 
+\begin{enumerate}
+  \item using a unique directory for each experiment
+  \item taking a parameter set from the cartesian product of the experiment parameters
+  \item creating from a batch job template an instantiation of the template while replacing all variables from the configuration file and replacing the specific experiment parameters
+  \item creating an instantiation of the configuration file while replacing all experiment parameters with the one for the current experiment.
+\end{enumerate}
 
+This is executed for all permutations of the experiment parameters. Through the creation of the unique experiment directory and the execution of the program in that directory with all output local to it, we have created implicitly a reproducible environment utilizing the files system hierarchy. Moreover, such output directories can be merged and results from multiple machines can be integrated as shown in Figure~\ref{???}
 
-% \input{cloudmesh.tex}
+To demonstrate how easy it is to use we like to demonstrate a simple 
+configuration file \verb|config.yaml| that includes specifications for where the data is located and which parameters are used in the application.
 
-\FILE{cloudmesh.tex}
+{\footnotesize
+\begin{lstlisting}[breaklines=true]
+    application:
+        name: earthquake
+    data: /scratch/\textcolor{red}{os.USER}/{application.name}
+    experiment:
+        epoch: "1,30,60"
+        gpu: "a100,v100"
+        repeat: "1,2,3,4,5"
+\end{lstlisting}
+}
+
+An example of a batch script that uses such a configuration is shown next
+
+{\footnotesize
+\begin{lstlisting}[breaklines=true]
+    #!/bin/bash
+
+    #SBATCH --job-name={experiment.repeat}-{application.earthquake}
+    #SBATCH --nodes=1
+    #SBATCH --gres=gpu:{experiment.gpu}:1
+    #SBATCH --time=02:00:00
+    #SBATCH --mem=64G
+    #SBATCH -o {experiment.gpu}-{application.earthquake}/{experiment.repeat}-%j.out
+    #SBATCH -o {experiment.gpu}-{application.earthquake}/{experiment.repeat}-%j.err
+    #SBATCH --partition=bii-gpu
+    #SBATCH --account=bii_dsc_community
+    export USER_SCRATCH=/scratch/$USER
+    cd USER_SCRATCH
+    mkdir -p $USER_SCRATCH/{experiment.gpu}-{application.earthquake}/%j.out
+    nvidia-smi
+    cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
+    python earthquake.py --config config.yaml
+    seff $SLURM_JOB_D
+\end{lstlisting}
+}
+
+It is important to note that for each experiment a custom batch file and configuration file is created that only includes the values for that particular experiment. 
+To allow easy integration of parameters in YAML and shell scripts, we have provided a specific extension to YAML that allows to fill in the value of a variable that is defined within a YAML file. The variables can easily be referred to with a dot notation in the templates. 
+
+One can choose experiment parameters that best suit the application and benchmark.
+
+While practically working with the system, we observed that students not using cloudmesh-sbatch often spend a significant amount of a semester just setting up a benchmark and replicating only a subset of the features that cloudmesh-sbatch provides. However, when a student uses it, we observed that the applications for which a template and configuration file has been designed the on-ramp-time was reduced to less than a day.
 
 \section{Other Cloudmesh Features}
 
@@ -1265,26 +802,14 @@ Cloudmesh comes with a sophisticated package management system,
 allowing the integration of packages on demand targeting various providers
 and capabilities including a built-in command shell (not just only
 a command line tool). Cloudmesh was first developed as a hybrid cloud
-API, command line and command shell framework. It provided interfaces
+API, command line, and command shell framework. It provided interfaces
 to AWS, Azure, Google, and OpenStack clouds for virtual
-machine\footnote{cloudmesh also provided support for clouds that are no
-longer supported such as Eucalyptus and Open Cirrus. Academic clouds
-such as Chameleon Cloud were also supported.} and data file services. It
+machine and data file services. It
 is characterized by defining default templates for virtual machine
 management on these clouds. Hence, it was possible to switch between clouds
-with only a few commands and stage virtual machines on them, such
-as with the commands demonstrated in Figure~\ref{fig:cms}.
+with only a few commands and stage virtual machines on them.
+% such as with the commands demonstrated in Figure~\ref{fig:cms}.
 
-\begin{figure}[htb]
-
-{\scriptsize\begin{verbatim}
-  $ cms vm start --cloud aws
-  $ cms vm start --cloud azure
-\end{verbatim}}
-
-\caption{Simple VM management for hybrid clouds}
-\label{fig:cms}.
-\end{figure}  
 
 In addition, we have developed a package called GAS that addresses
 the creation of analytics REST services from Python functions. This
@@ -1295,42 +820,27 @@ non-experts to deploy and host services in the cloud. To avoid vendor
 lock-in, it supports multiple vendors through the use of cloudmesh vm
 management~\cite{las21-gas}.
 
-
-% \input{applications.tex}
-\FILE{applications.tex}
-
-\section{Workflow Applications}
-
-We have applied the workflow system on a number of applications. All
-workflows for these applications are available in our GitHub and can
-be adapted easily. This includes the Cloudmask and MNIST application
-workflows which we describe next in more details.
-
-
-
-
-% \input{cloudmask.tex}
-
-\FILE{Cloudmask.tex}
-
-\subsection{MLCommons Cloudmask Workflow}
+\section{MLCommons Cloudmask Workflow}
 \label{cloudmask-workflow}
 
+We have applied the workflow system to a number of applications. To provide an easy-to-use application, we have utilized MNIST and documented its use in our GitHub. However here, we demonstrate the use applied to the MLCommons Science Group Cloudmask application.
+
+
 Cloudmask is a program that develops a model to classify sections of
-satellite images as either containing clouds or clear sky by using
+satellite images as either containing clouds or clear skies by using
 machine learning. This is beneficial for temperature measurement and
 meteorology. Information regarding Cloudmask can be found on its
 GitHub page~\cite{www-cloudmask}. One of our goals is to run
 Cloudmask for benchmarking. As benchmarking Cloudmask requires
 several phases and scripts, including a mixture of shell scripts and
 Python scripts, leveraging Cloudmesh-cc provides a much easier runtime
-instead of manually issuing many commands at a terminal. We have
-created a sample workflow the runs a coordinated workflow across a
+instead of manually issuing many commands at a terminal, especially when targeting hybrid multi-platform HPC machines with their own system dependencies. Hence, we have
+created a sample workflow that runs a coordinated workflow across a
 number of hybrid resources. This includes an HPC computer at the
 University of Virginia called Rivanna, as well as two desktop
 computers. This workflow can easily be adapted to include other
 machines. In this particular workflow, we execute the benchmarks on a
-number of different CUDA cards (see Figure~\ref{fig:cloudmaskwf}. For
+number of different CUDA cards (see Figure~\ref{fig:runtime-comp}). For
 Rivanna, the code also utilizes our cloudmesh-vpn component that
 provides the ability to connect to the UVA VPN from Python, then
 fetches the data and executes the various benchmarks once the data is
@@ -1346,77 +856,100 @@ available.
 \end{comment}
 
 The workflow will take approximately 24 hours to run if resources are
-available. The workflow iterates through the five GPUs available on
+available. The workflow iterates through five GPUs available on
 Rivanna, including V100, P100, A100, K80, and RTX2080, and runs the
 program three times on each GPU. Each run trains the model with 10,
 30, and 50 epochs for benchmarking. Upon completing a run, the logs
-and benchmarks are written into a results folder. In the appendix, we
-showcase how to run a portion of this workflow while utilizing
-only Rivanna (see Appendix~\ref{sec:running-cloudmask}).
+and benchmarks are written into a results folder. 
+In the following figures, we showcase a subset of the workflow 
+to increase readability in this publication production of paper.
+
+All results produced from the various machines can be agglomerated 
+into a single analysis directory on which our Jupyter notebook can be run to produce customized outputs.
+
+We showcase in Figures \ref{fig:runtime-comp}-\ref{fig:inf-acc-spectrum} selected templates that we include in our analysis script that can easily be adapted to other applications. It includes 
+ benchmark comparisons of Cloudmask between graphics cards
+(Figure~\ref{fig:runtime-comp}),
+training history validation accuracy
+(Figure~\ref{fig:train-hist-val-acc}),
+training history validation loss
+(Figure~\ref{fig:train-hist-val-loss}),
+training history accuracy
+(Figure~\ref{fig:train-hist-acc}),
+training history loss
+(Figure~\ref{fig:train-hist-loss}),
+and more.
+
+Additionally for this application, we integrated a custom analysis script that obtains differences in inference accuracy while aligning them with the various samples used for the inference as shown in the Figures titled
+Inference accuracy (Figure~\ref{fig:inf-acc}) and
+Inference accuracy over sample as a spectrum
+(Figure~\ref{fig:inf-acc-spectrum}). The last two images from our workflow especially demonstrate that some training data perform poorly on our trained model for this application. Thus, a further improvement of the application is justified. Having our workflow and the templates as starting points will simplify research into this and other applications that utilize the framework. We are looking forward to an improved version of MLCube, which we will then integrate into this application and also utilize in our toolchain.
 
 
-
-%\input{mnist.tex}
-
-\FILE{mnist.tex}
-
-\subsection{MNIST Workflow}\label{mnist-workflow}
-
-MNIST is a well-known program to detect handwritten digits. It
-provides value for our work because it is well understood and is used
-in many educational efforts. Also, we created a workflow that
-integrates the UVA Rivanna HPC (the workflow can easily be adapted to other
-machines). The nice feature about this application is that it can be
-configured to run very quickly while still using various GPUs and
-benchmark their runtimes for running several MNIST Python
-programs. These programs include machine learning processing,
-convolutional neural network, long short-term memory, recurrent neural
-network, and others. The programs can be found on
-GitHub~\cite{www-mnist-programs}.
-
-As for the workflow, we adapted it not only to run one algorithm but
-multiple in an iteration across the GPUs (similar to
-\ref{fig:cloudmaskwf}).
-
-On a successful run, the output will be receiving runtimes similar to:
-
-\begin{table}[!ht]
-\caption{MNIST Performance as obtained by cloudmesh-cc on various graphics cards using workflow scheduling}
-    \centering
-    \begin{tabular}{lr}
-    \hline
-        Name & Time \\ \hline
-        a100 & 106.046 \\ 
-        v100 & 138.087 \\ 
-        rtx2080 & 138.048 \\
-        k80 & 171.057 \\ 
-        p100 & 202.055 \\
-    \end{tabular}
-    \label{table:mnist-times}
-  \end{table}
-
-\TODO{need pdf for workflow, but maybe embedded in gui}
-
-\begin{comment}
-\begin{figure}[htb]
-{\centering
-\includegraphics[width=1.0\columnwidth]{images/workflow-cloudmask-new.png}
-}
-\caption{Cloudmesh-cc cloudmask workflow on several compute resources.}\label{fig:cc-cloudmask}
-\end{figure}
-\end{comment}
 
 \begin{figure}[htb]
 {\centering
 \includegraphics[width=1.0\columnwidth]{images/rivanna-comparision-epoch-1.pdf}
 }
-\caption{Architecture of the Cloudmesh-cc Framework}\label{fig:arch}
+\caption{Runtime comparisons of Cloudmask between graphics cards}
+\label{fig:runtime-comp}
 \end{figure}
 
+\begin{figure}[p]
+{\centering
+\includegraphics[width=1.0\columnwidth]{images/training-history-val_accuracy.pdf}
+}
+\vspace{-0.7cm}
+\caption{Training history validation accuracy}
+\label{fig:train-hist-val-acc}
 
-% \input{conclusion}
+\vspace{1cm}
 
-\FILE{conclusion.tex}
+{\centering
+\includegraphics[width=1.0\columnwidth]{images/training-history-val_loss.pdf}
+}
+\vspace{-0.7cm}
+\caption{Training history validation loss}
+\label{fig:train-hist-val-loss}
+
+\vspace{1cm}
+
+{\centering
+\includegraphics[width=1.0\columnwidth]{images/training-history-accuracy.pdf}
+}
+\vspace{-0.7cm}
+\caption{Training history accuracy}
+\label{fig:train-hist-acc}
+
+\end{figure}
+
+\begin{figure}[p]
+
+{\centering
+\includegraphics[width=1.0\columnwidth]{images/training-history-loss.pdf}
+}
+\vspace{-0.7cm}
+\caption{Training history loss}\label{fig:train-hist-loss}
+
+\vspace{1cm}
+
+{\centering
+\includegraphics[width=1.0\columnwidth]{images/inference-accuracy.pdf}
+}
+\vspace{-0.7cm}
+\caption{Inference accuracy}
+\label{fig:inf-acc}
+
+\vspace{1cm}
+
+{\centering
+\includegraphics[width=1.0\columnwidth]{images/spectrum-inference-accuracy.pdf}
+}
+\vspace{-0.7cm}
+\caption{Inference accuracy over sample as a spectrum.}
+\label{fig:inf-acc-spectrum}
+\end{figure}
+
 
 \section{Conclusion}
 
