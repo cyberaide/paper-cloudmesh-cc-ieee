@@ -477,35 +477,13 @@ DAG with three nodes are specified ( $start \rightarrow fetch-data
 example the
 workflow executes three scripts
 (test-[fetch-data,compute,analyze].sh). It contains a specific start
-and end node. This is a typical usepattern for DL related analysis tasks.
+and end node. This is a typical usepattern for DL related analysis tasks. Dependencies can easily be specified in human readable format whil eusing the node name. The nodenames containg easy to manage information such as the name of the node, a label that is uused to print the nodes progress. The label is may contain variables that can be custom designed and adde to the workflow. Default variables that are frequently used include {\em name}, \em progress}, and {\em time}.  Nodes can also have a type indication if it represents
+a python, sh,
+jupyter, or slurm task. Additionally for python one can specify the virtual environment with venv allowing multiple venvs to be used in the same workflow.
 
-\subsection{Dependencies}
-
-Each dependency is specified in the {\em dependency} section while
-providing sequences of names in a list. In case one wants to execute
-nodes in parallel, we can simply define them through a list such as
-
-
-{\scriptsize
-\begin{verbatim}
-  dependencies:
-    - start,a,end
-    - start,b,end
-    - start,c,end
-\end{verbatim}
-}
-
-if the names of the nodes were $a$, $b$, and $c$. 
-
-\subsection{Nodes}
-
-Nodes can be customized in various ways within the workflow
-configuration YAML file, including their job types (python, sh,
-jupyter, or slurm), their virtual Python environment (by specifying
-{\scriptsize\texttt venv}), their appearance on the graph, and other
-characteristics. This is controlled through a number of attributes
-used by the nodes in the DAG. The attributes are summarized in
-Table~\ref{tab:node-attributes}.
+The node attributes are listed and summarized 
+in
+Table~\ref{tab:node-attributes} while details about the labels are listed in Table \ref{fig:labels-list}. As the labels and styling are simple to use but have a powerful impact on the display of the workflow we document some of its features in the next sections.
 
 \begin{figure}[htb]
 {\scriptsize
