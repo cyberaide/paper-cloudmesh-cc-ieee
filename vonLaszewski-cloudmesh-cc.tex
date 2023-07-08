@@ -39,6 +39,8 @@
 \lstset{
   basicstyle=\scriptsize\ttfamily,
   breaklines=true
+  keywordstyle=\color{red},
+  moredelim=[s][\color{red}]{\{}{\}}
 }
 
 \definecolor{friendlybg}{HTML}{f0f0f0}
@@ -54,23 +56,26 @@ CyberTraining for Students and Technologies from Generation Z with the
 award numbers 1829704 and 2200409 and NIST 60NANB21D151T.}
 }
   
-\author{\IEEEauthorblockN{1\textsuperscript{st} Gregor von Laszewski\textsuperscript{\href{https://orcid.org/0000-0001-9558-179X}{\includegraphics[height=9pt]{images/orcid_icon.png}}}}
+\author{\IEEEauthorblockN{1\textsuperscript{st} Gregor von Laszewski}
 \IEEEauthorblockA{\textit{Biocomplexity Institute}\\
 \textit{University of Virginia}\\
 Charlottesville, VA 22911, USA \\
-laszewski@gmail.com}
+laszewski@gmail.com \\
+0000-0001-9558-179X}
 \and
-\IEEEauthorblockN{2\textsuperscript{nd} J.P. Fleischer\textsuperscript{\href{https://orcid.org/0000-0002-1102-1910}{\includegraphics[height=9pt]{images/orcid_icon.png}}}}
+\IEEEauthorblockN{2\textsuperscript{nd} J.P. Fleischer}
 \IEEEauthorblockA{\textit{Biocomplexity Institute}\\
 \textit{University of Virginia}\\
 Charlottesville, VA 22911, USA \\
-jacquespfleischer@gmail.com}
+jacquespfleischer@gmail.com \\
+0000-0002-1102-1910}
 \and
-\IEEEauthorblockN{3\textsuperscript{rd} Geoffrey C. Fox\textsuperscript{\href{https://orcid.org/0000-0003-1017-1391}{\includegraphics[height=9pt]{images/orcid_icon.png}}}}
+\IEEEauthorblockN{3\textsuperscript{rd} Geoffrey C. Fox}
 \IEEEauthorblockA{\textit{Biocomplexity Institute}\\
 \textit{University of Virginia}\\
 Charlottesville, VA, USA \\
-gcfexchange@gmail.com}
+gcfexchange@gmail.com \\
+0000-0003-1017-1391}
 \and
 \IEEEauthorblockN{4\textsuperscript{th} Juri Papay\\
 5\textsuperscript{th} Sam Jackson}
@@ -94,22 +99,22 @@ Didcot, OX11 0QX, UK}
  In this paper, we summarize our effort to create and utilize a {\em
  simple} framework to coordinate computational AI analytics tasks with
  the help of a workflow system. Our design is based on a minimalistic
- approach while at the same time allowing to access to hybrid
+ approach while at the same time allowing access to hybrid
  computational resources offered through the owner's computer, HPC
  computing centers, cloud resources, and distributed systems in
  general. Access to this framework includes a simple GUI for
  monitoring and managing the workflow, a REST service, a command line
  interface, as well as a Python interface. It also includes a template
  based batch management system that, through configuration files, easily allows 
- for generation of reproducible experiments while creating permutations over
- selected experiment parameters. The resulting framework was
- developed for several examples targeting benchmarks of AI
- applications on hybrid compute resources and as an educational tool
+ for the generation of reproducible experiments while creating permutations over
+ selected experiment parameters as typical in deep learning applications. The resulting framework was
+ developed for analytics workflows targeting benchmarks of AI
+ applications on hybrid computing resources, as well as an educational tool
  for teaching scientists and students sophisticated concepts to
  execute computations on resources ranging from a single computer to
  many thousands of computers as part of on-premise and cloud
  infrastructure. We demonstrate the usefulness of the tool while
- creating FAIR principle based result generation for the MLCommons
+ creating FAIR principle-based result generation for the MLCommons
  Science Working Group Cloudmask application. The code is available as
  an open-source project in GitHub and is based on an easy-to-enhance
  tool called Cloudmesh.
@@ -118,7 +123,7 @@ Didcot, OX11 0QX, UK}
 \end{abstract}
 
 \begin{IEEEkeywords}
-high performance computing, batch queue, service
+experiment workflow, task workflow, high performance computing, batch queue, workflow web service
 \end{IEEEkeywords}
 
 % \section{Introduction}
@@ -176,7 +181,7 @@ high performance computing, batch queue, service
 
 \section{Introduction}
 
-In In this section we provide an introduction to our work while
+In this section, we provide an introduction to our work while
 moving forward to motivate a 
 Hybrid Reusable Computational Analytics Workflow
 Management Framework.
@@ -191,17 +196,18 @@ As part of this activity, we are collaborating with a large number of researcher
 (b) When dealing with different compute resources, special system configurations need to be developed for each resource, and these configurations may even vary from user to user on the system.
 (c) creating a reproducible experiment is often out of scope as the focus for beginning students that barely have the time to run and understand the application during a semester activity.
 
-What we strive to achieve is to make the situation simpler for the students while working at the same time towards the implementation of the FAIR principle \cite{www-fair} for the targeted MLCommons Science applications addressing the previous mentioned issues. 
+What we strive to achieve is to make the situation simpler for the students while working at the same time towards the implementation of the FAIR principle \cite{www-fair} for the targeted MLCommons Science applications addressing the previously mentioned issues. 
 
-Although we are applying our approach on other applications, we focus here on the MLCommons Cloudmask \cite{las-22-mlcommons-science} application that tries to identify the cloudcover from satelite images.
+Although we are applying our approach to other applications, we focus here on the MLCommons Cloudmask \cite{las-22-mlcommons-science} application that tries to identify the cloud cover from satellite images.
 
-The paper is structured as follows. First we present important requirement aspects that influenced the design and implemenattion of our work (Section \ref{sec:requirements}).
+The paper is structured as follows. First, we present important requirement aspects that influenced the design and implementation of our work (Section \ref{sec:requirements}).
+
 
 
 \section{Requirements}
 \label{sec:requirements}
 
-We list the requirements that influence our design and describe in more detail requirements arising from reusability, design, and implementation specific requirements.
+We list the requirements that influence our design and describe in more detail requirements arising from reusability, design, and implementation-specific requirements.
 
 \subsection{Reusability Requirements}
 
@@ -210,7 +216,7 @@ We list the requirements that influence our design and describe in more detail r
 Reusable computational analytics (RCA) focuses on the creation
 of reusable programs, patterns, and services to conduct analytics
 tasks that are part of the scientific discovery process. RCA service
-need varies widely and may include multi-scale hardware resources as
+the need varies widely and may include multi-scale hardware resources as
 well as multi-scale scientific applications. To utilize such services
 and their resources in a reusable way, we need to have a mechanism to
 express them in an easy fashion that goes beyond just the definition
@@ -221,23 +227,23 @@ reusable in others.
 
 \subsubsection{Reusable Multi-scale Algorithms}
 
-In current scientific problems we encounter a rich set of applications
+In current scientific problems, we encounter a rich set of applications
 that leverage a number of sophisticated methods that may require
 adaptations on multiple scales. The scales are influenced by their
-Domain size, accuracy and time requirement to solve them in a
-sufficient manner. It is of advantage to provide reusable components
+Domain size, accuracy, and time requirement to solve them adequately. It is advantageous to provide reusable components
 that can be controlled by parameters to simplify reuse.
+
 
 \subsubsection{Hybrid Cloud and Compute Resources and Serices}
 
 As we deal with multi-scale algorithms, not every analytics task needs
-to be conducted on a High Performance Computer (HPC). This is
+to be conducted on a High-Performance Computer (HPC). This is
 especially the case with the advent of desktop GPUs, which authors
-have termed in past {\em desktop supercomputing}. Also the
-availability of cloud computers and hyper-scale data centers play a
+have termed in the past {\em desktop supercomputing}. Also, the
+availability of cloud computers and hyper-scale data centers plays a
 significant role in today's analytics processes. This not only
-includes the use compute resources, but also services that are these
-days offered by cloud service providers. A well-known example for this
+includes the use of computing resources but also services that are these
+days offered by cloud service providers. A well-known example of this
 is natural language processing.
 
 \subsubsection{Reusable and Adaptable HPC and Cloud Service Workflows}
@@ -261,29 +267,26 @@ platforms in a dynamic queue with visualization and data storage.
 
 Similar aspects are available for cloud services that abstract the
 infrastructure needs and focus on the availability of services that
-can be integrated in concert with HPC, as well as the users local
+can be integrated in concert with HPC, as well as the user's local
 resources (for example a PC).
-
 
 \subsection{Design and Implementation Requirements}
 
-
 For the design of the framework, we have the following requirements.
-
 
 \subsubsection{Simplicity}
 
 The design must be simple and the code base must be
-small.  This helps the future maintenance of the code, but also allows
+small.  This helps the future maintenance of the code but also allows
 the code to become part of educational opportunities such as in a
 Research Experience for Undergraduates (REU), capstone project, and
 class projects. The challenge here is that many other systems are too
-big to be used in introductory undergraduate and masters activities.
+big to be used in introductory undergraduate and master's activities.
 However, the framework should be capable enough to also support
 research projects.
 
 \subsubsection{Workflow Specification} The specification of the workflow must
-be simple.  From the past we have learned that the introduction of
+be simple.  From the past, we have learned that the introduction of
 programming control components such as loops, and conditions, in
 addition to DAGs, is essential to provide maximum flexibility.
 
@@ -296,7 +299,7 @@ workflow, we must provide several interface layers. This includes
 specification through a YAML file, interfacing through REST calls,
 interfacing through a Python API, and interfacing with a very simple
 GUI component.  For the workflow monitoring with the GUI, we must be
-able to easily define custom text to reflect user designable
+able to easily define custom text to reflect user-designable
 monitoring labels.
 
 \subsubsection{Language Independence} As we want to make the framework
@@ -306,7 +309,7 @@ REST API seems very well-suited.
 
 \subsubsection{OpenAPI} To further strengthen usability, the framework must
 have an OpenAPI interface. This allows the integration via 3rd party
-tools into other frameworks and languages, if desired.
+tools into other frameworks and languages if desired.
 
 \subsubsection{Hybrid Multicloud Providers} The service must be able to be
 deployable on an on-premise local computer or various cloud providers.
@@ -328,11 +331,6 @@ deploy the framework on a laptop, start the workflow, close or
 shutdown the laptop, and at a later time open the laptop while the
 workflow framework can be refreshed with the latest state.
 
-%\end{description}
-
-% \input{related-research}
-
-\FILE{related-research.tex}
 
 \section{Related Research}
 
@@ -340,20 +338,20 @@ Many different workflow systems have been developed in the past. It is
 out of the scope of this document to present a complete overview of
 all the different systems. Instead, we list some of the systems and organize them in various categories within this section. A more detailed analysis is available
 at \cite{las-22-arxiv-workflow-cc}. One of the systems that has been developed is MLCube \cite{www-mlcube} developed within MLCommons. Similar to our framework, it uses YAML specification for organizing, running, and sharing machine learning experiments. It attempts to standardize the 
- format for defining and packaging machine learning projects, including their code, dependencies, datasets, and configurations. Through this it aims to 
- facilitate reproducibility and portability of machine learning experiments by encapsulating all the necessary components in a self-contained and portable container. Our system is needed as it provides both an enhancement on top of MLCube, as well as on the bottom.
+ format for defining and packaging machine learning projects, including their code, dependencies, datasets, and configurations. Through this, it aims to 
+ facilitate the reproducibility and portability of machine learning experiments by encapsulating all the necessary components in a self-contained and portable container. Our system is needed as it provides both an enhancement on top of MLCube, as well as on the bottom.
  Thus, we could integrate tools and services we developed within an MLCube specification, but also use MLCube within our framework. One of the features we try to emphasize is that we do not distribute a container in general, but just the description of how the container can be created either in Docker or Singularity. This is important when the customization of the experiment and its applications is in the foreground. Furthermore, at the time of writing, the support of MLCube for Singularity was not supporting our locally available resources (on which docker is not supported) so we could not utilize it. As a result, our team has proposed changes to MLCube that will eventually result in a usable Singularity port. 
  
 Next, we list the various categories of related workflow systems while augmenting. By no means is this list complete, but it represents a selected number of efforts. 
 
-\subsubsection{ Batch parallelism} Long-running jobs on HPC systems are coordinated through
+\subsubsection{Batch parallelism} Long-running jobs on HPC systems are coordinated through
 Batch services  \cite{www-lsf,www-slurm,www-cloudmesh-manual,www-airflow,las-1996-thesis,las-1999-loosely}.
 
-\subsubsection{ Task parallelism} Tasks are a logical unit of work that is
+\subsubsection{Task parallelism} Tasks are a logical unit of work that is
 executed by a resource, service, or component. Task parallelism
 is often used in distributed resource frameworks \cite{www-cloudmesh-manual,www-airflow}.
 
-\subsubsection{ Resource Reservation} In some cases, access to batch queues on
+\subsubsection{Resource Reservation} In some cases, access to batch queues on
 HPC systems take a long time. In the case of many different tasks, it
 is sometimes useful to research a number of batch nodes and run many
 short-running programs on them if the need arises. This, however, can
@@ -361,24 +359,24 @@ often be replaced just with properly coordinated workflows using a
 batch system. In fact, frameworks using such reservations internally
 implement them using the batch system \cite{las-02-infogram,www-pegasus,www-parsl,arxiv-radical-pilot}.
 
-\subsubsection{ Computational Grids} Grids provide service-level access to
+\subsubsection{Computational Grids} Grids provide service-level access to
 distributed HPC computing resources. However, Grids (popular a decade
 ago) are no longer predominantly deployed and the focus has shifted to
 Cloud computing \cite{www-pegasus}.
 
-\subsubsection{ Cloud} Presently, computing resources are also available in
+\subsubsection{Cloud} Presently, computing resources are also available in
 the cloud as HPC, batch, and compute services, including specialized
-SaaS offerings that allow to integrate analytics functions into
+SaaS offerings that allow integrating analytics functions into
 workflows \cite{www-cloudmesh-manual,www-airflow,www-gcloud,www-azure-rest,www-aws-workflow,www-azure-batch}.
 
-\subsubsection{ REST} The predominant specification for cloud services uses the
-REST framework relying on a stateless model. This contrasts with the
+\subsubsection{REST} The predominant specification for cloud services uses the
+REST framework relies on a stateless model. This contrasts with the
 WSRF model that uses stateful services \cite{www-business-rest-ibm}.
 
-\subsubsection{ Specification} Some work has also focused on the specification
+\subsubsection{Specification} Some work has also focused on the specification
 of the workflows  \cite{www-snakemake,las-2004-gridant,www-pegasus,las-2007-swift,www-aws-swf}.
 
-\subsubsection{ GUI} Some frameworks provide extensive GUIs \cite{www-kepler,www-aws-stepfunctions,www-azure-batch,www-azure-enterprise-workflow}.
+\subsubsection{GUI} Some frameworks provide extensive GUIs \cite{www-kepler,www-aws-stepfunctions,www-azure-batch,www-azure-enterprise-workflow}.
 
 
 \section{Design}
@@ -399,7 +397,7 @@ framework is depicted in Figure~\ref{fig:arch}.
 The framework is based on a layered architecture so it can be improved
 and expanded on at each layer. We distinguish two kinds of users---developers 
 and end users---that define their workflows to run on
-compute resources. For the end user, we provide a command line and a
+computing resources. For the end user, we provide a command line and a
 very simple browser interface. Simplicity is important as it does not
 require spending exorbitant amounts of time to learn how to use the
 workflow framework. To support developers, we have designed a minimal
@@ -453,7 +451,7 @@ report information on the status of jobs as they are run, whether
 locally or remotely. These types of jobs can be mixed with others into
 a single workflow. This allows us, as already mentioned, to view the
 progress of a workflow as it is being run in quasi-realtime.  The
-workflow can be monitored as a graph or a DataTable. These interfaces
+workflow can be monitored as a graph or a data table. These interfaces
 report the statuses of the jobs. Additionally, the order in which the
 jobs are run can be specified, enabling prerequisite jobs and the
 segmentation of a workflow.
@@ -482,13 +480,13 @@ DAG with three nodes are specified ( $start \rightarrow fetch-data
 example the
 workflow executes three scripts
 (test-[fetch-data,compute,analyze].sh). It contains a specific start
-and end node. This is a typical use pattern for DL-related analysis tasks. Dependencies can easily be specified in human-readable format while using the node name. The nodenames contain easy-to-manage information such as the name of the node, a label that is used to print the node's progress. The label may contain variables that can be custom designed and added to the workflow. Default variables that are frequently used include {\em name}, {\em progress}, and {\em now}.  Nodes can also have a type indication if it represents
+and end node. This is a typical use pattern for DL-related analysis tasks. Dependencies can easily be specified in human-readable format while using the node name. The nodes contain easy-to-manage information such as the name of the node and a label that is used to print the node's progress. The label may contain variables that can be custom designed and added to the workflow. Default variables that are frequently used include {\em name}, {\em progress}, and {\em now}. Nodes can also have a type indication if it represents
 a Python, sh,
 Jupyter, or Slurm task. Additionally for Python, one can specify the virtual environment with venv, allowing multiple venvs to be used in the same workflow.
 
 The node attributes are listed and summarized 
 in
-Table~\ref{tab:node-attributes}, while details about the labels are listed in Table \ref{fig:labels-list}. As the labels and styling are simple to use but have a powerful impact on the display of the workflow we document some of its features in the next sections.
+Table~\ref{tab:node-attributes}, while details about the labels are listed in Table \ref{fig:labels-list}. As the labels and styling are simple to use but have a powerful impact on the display of the workflow, we document some of its features in the next sections.
 
 \begin{figure}[htb]
 {\scriptsize
@@ -612,11 +610,11 @@ Table~\ref{fig:labels-list} shows the many useful time-based names one can use i
 
 \subsection{Shapes and Styles}
 
-Presently, we use Graphviz \cite{www-graphviz} for rendering the workflow. Thus we also integrated the ability to define attributes provided by Graphviz such as shapes and styles. The full palette of Graphviz features in regards to styles and styles is supported.
+Presently, we use Graphviz \cite{www-graphviz} for rendering the workflow. Thus we also integrated the ability to define attributes provided by Graphviz such as shapes and styles. The full palette of Graphviz features in regard to shapes and styles is supported.
 
 \subsection{Reporting Progress}\label{reporting-progress}
 
-When running jobs inside a Cloudmesh Workflow, the scripts called can use a standard format provided by 
+When running jobs inside a Cloudmesh workflow, the called scripts can use a standard format provided by 
 {\em cloudmesh.progress} to notify the user and the
 backend client monitoring system. This is available in Python, shell, and any other framework as it can be implemented using a write to STDOUT. Such progress is augmented by an integer which indicates 0-100\% progress.
 A trivial example encapsulating a machine learning program is shown next.
@@ -682,20 +680,20 @@ Complete workflow \\
 \section{Cloudmesh-cc Interfaces}
 
 In this section, we explain the various ways of interfacing with the workflow which is distributed in a Python package 
-{\em cloudmesh-cc} that includes all but the lower level of our design (see Figure~\ref{fig:arch} and the experiment executor which is implemented in a package called {\em cloudmesh-sbatch}. Interfaces to compute resources are, by design, able to be added via simple pip installs and (once installed through dynamic loading) integrated into the cloudmesh framework instantiation.
+{\em cloudmesh-cc} that includes all but the lower level of our design (see Figure~\ref{fig:arch} and the experiment executor which is implemented in a package called {\em cloudmesh-sbatch}). Interfaces to compute resources are, by design, able to be added via simple pip installs and (once installed through dynamic loading) integrated into the cloudmesh framework instantiation.
 
-It is important to note that we have also a {\em command line mode} that interfaces directly with the backends while not requiring a service. All features are available as PythonAPI. In addition, we have used this API to implement a {\em service}, that allows us to stand up a REST service as well as a GUI that can be accessed through a Web browser.
+It is important to note that we also have a {\em command line mode} that interfaces directly with the backends while not requiring a service. All features are available as PythonAPI. In addition, we have used this API to implement a {\em service}, allowing us to stand up a REST service and a GUI that can be accessed through a Web browser.
 Please note that the service mode can also be accessed through the command line
 in a terminal and native tools to display the workflow. 
 We will now discuss these interfaces in more detail and also showcase
 how we can access them.
-To support direct execution on the command line we also provide not only a command line interface but leverage the cloudmesh command shell enabling us to interact with the system from the cloudmesh shell on-demand. 
+To support direct execution on the command line, we also provide a command line interface and leverage the cloudmesh command shell, enabling us to interact with the system from the cloudmesh shell on-demand. 
 
-Hence our work can be integrated into many other frameworks or tools some of which are listed in the Related Research section. Details of these APIs go beyond the purpose of this document and are summarized in \cite{las-22-arxiv-workflow-cc}.
+Hence, our work can be integrated into many other frameworks or tools, some of which are listed in the Related Research section. Details of these APIs go beyond the purpose of this document and are summarized in \cite{las-22-arxiv-workflow-cc}.
 
 In addition to the aforementioned interfaces, we also provide a simple Web GUI interface that allows a workflow to be administered and monitored through the GUI. At this time, it contains all the needed functionality to execute and monitor a workflow through a Web Browser.
 
-Figure \ref{fig:table-view} shows the table view of a possible cloudmask workflow, while \label{fig:graph-view} shows the graph view. During execution, the information in the views will be automatically updated.
+Figure \ref{fig:table-view} shows the table view of a possible cloudmask workflow, while Figure \ref{fig:graph-view} shows the graph view. During execution, the information in the views will be automatically updated through server-sent events.
 
 
 \begin{figure}[htb]
@@ -734,11 +732,11 @@ Figure \ref{fig:table-view} shows the table view of a possible cloudmask workflo
 
 In traditional machine learning workflows, hyperparameter tuning and configuration are key elements in assessing and optimizing the performance of models. However, scaling hyperparameters for highly parallel execution with heterogeneous hardware is complex.
 
-Cloudmesh-sbatch is a hyperparameter and configuration management toolkit designed to address the generation of batch jobs with a consistent and configurable interface based on hyperparameter values across multiple development toolchains. One of its functions is to create batch jobs based on parameterized job specifications and configuration files.  As it is integrated with cloudmesh, it can leverage a variety of queuing systems and submission commands through abstractions. Currently, we provide interfaces to Slurm, LSF, and ssh as these are the frameworks used on HPC and local resources that we have access to. However, it would be possible to integrate others due to the extensible design of our framework.
+Cloudmesh-sbatch is a hyperparameter and configuration management toolkit designed to address the generation of batch jobs with a consistent and configurable interface based on hyperparameter values across multiple development toolchains. One of its functions is to create batch jobs based on parameterized job specifications and configuration files. As it is integrated with cloudmesh, it can leverage various queuing systems and submission commands through abstraction. Currently, we provide interfaces to Slurm, LSF, and ssh as these are the frameworks used on HPC and local resources we have access to. However, it would be possible to integrate others due to the extensible design of our framework.
 
-The architecture of the cloudmesh-sbatch framework is depicted in Figure \ref{fig:cc-2} and also demonstrates that it integrates with our previous cloudmesh-cc component.
+The architecture of the cloudmesh-sbatch framework is depicted in Figure \ref{fig:cc-2} and demonstrates that it integrates with our previous cloudmesh-cc component.
 
-Cloudmesh-sbatch generates a cartesian product (permutation) of hyperparameter to form independent {\it experiment} execution profiles, making it trivial to scale an experiment from one execution to thousands just by changing the configuration file.  The resulting output provides a generated shell script that is custom created for the particular queuing system used on the resource. Within the configuration file for such a resource, we also use a YAML configuration file representing the specific hyperparameters.  By managing many highly configurable jobs with cloudmesh-sbatch, the focus is placed on what hyperparameters to use for experiments and reducing the possibility of human error when running experiments over a range of hyperparameters. It is important to note that cloudmesh-sbatch is:
+Cloudmesh-sbatch generates a cartesian product (permutation) of hyperparameter to form independent {\it experiment} execution profiles, making it trivial to scale an experiment from one execution to thousands just by changing the configuration file. The resulting output provides a generated shell script that is custom created for the particular queuing system used on the resource. Within the configuration file for such a resource, we also use a YAML configuration file representing the specific hyperparameters. By managing many highly configurable jobs with cloudmesh-sbatch, the focus is placed on what hyperparameters to use for experiments and reducing the possibility of human error when running experiments over a range of hyperparameters. It is important to note that cloudmesh-sbatch is:
 
 \begin{enumerate}
   \item using a unique directory for each experiment
@@ -747,16 +745,16 @@ Cloudmesh-sbatch generates a cartesian product (permutation) of hyperparameter t
   \item creating an instantiation of the configuration file while replacing all experiment parameters with the one for the current experiment.
 \end{enumerate}
 
-This is executed for all permutations of the experiment parameters. Through the creation of the unique experiment directory and the execution of the program in that directory with all output local to it, we have created implicitly a reproducible environment utilizing the files system hierarchy. Moreover, such output directories can be merged and results from multiple machines can be integrated as shown in Figure~\ref{???}
+This is executed for all permutations of the experiment parameters. Through the creation of the unique experiment directory and the execution of the program in that directory with all output local to it, we have created implicitly a reproducible environment utilizing the files system hierarchy. Moreover, such output directories can be merged and results from multiple machines can be integrated as shown in Figure~\ref{fig:runtime-comp}.
 
-To demonstrate how easy it is to use we like to demonstrate a simple 
+To demonstrate how easy it is to use, we like to demonstrate a simple 
 configuration file \verb|config.yaml| that includes specifications for where the data is located and which parameters are used in the application.
 
 {\footnotesize
 \begin{lstlisting}[breaklines=true]
     application:
         name: earthquake
-    data: /scratch/\textcolor{red}{os.USER}/{application.name}
+    data: /scratch/{os.USER}/{application.name}
     experiment:
         epoch: "1,30,60"
         gpu: "a100,v100"
@@ -764,7 +762,7 @@ configuration file \verb|config.yaml| that includes specifications for where the
 \end{lstlisting}
 }
 
-An example of a batch script that uses such a configuration is shown next
+An example of a batch script that uses such a configuration is shown next.
 
 {\footnotesize
 \begin{lstlisting}[breaklines=true]
@@ -789,21 +787,20 @@ An example of a batch script that uses such a configuration is shown next
 \end{lstlisting}
 }
 
-It is important to note that for each experiment a custom batch file and configuration file is created that only includes the values for that particular experiment. 
-To allow easy integration of parameters in YAML and shell scripts, we have provided a specific extension to YAML that allows to fill in the value of a variable that is defined within a YAML file. The variables can easily be referred to with a dot notation in the templates. 
+It is important to note that for each experiment, a custom batch file and configuration file is created that only includes the values for that particular experiment. 
+To allow easy integration of parameters in YAML and shell scripts, we have provided a specific extension to YAML that allows us to fill in the value of a variable that is defined within a YAML file. The variables can easily be referred to with a dot notation in the templates. 
 
 One can choose experiment parameters that best suit the application and benchmark.
 
-While practically working with the system, we observed that students not using cloudmesh-sbatch often spend a significant amount of a semester just setting up a benchmark and replicating only a subset of the features that cloudmesh-sbatch provides. However, when a student uses it, we observed that the applications for which a template and configuration file has been designed the on-ramp-time was reduced to less than a day.
+While practically working with the system, we observed that students not using cloudmesh-sbatch often spend a significant amount of a semester on setting up a benchmark and replicating only a subset of the features that cloudmesh-sbatch provides. However, when a student uses it, we observed that the applications for which a template and configuration file has been designed reduced the on-ramp time to less than a day.
 
 \section{Other Cloudmesh Features}
 
 Cloudmesh comes with a sophisticated package management system,
 allowing the integration of packages on demand targeting various providers
-and capabilities including a built-in command shell (not just only
+and capabilities, including a built-in command shell (not just only
 a command line tool). Cloudmesh was first developed as a hybrid cloud
-API, command line, and command shell framework. It provided interfaces
-to AWS, Azure, Google, and OpenStack clouds for virtual
+API, command line, and command shell framework. It provided AWS, Azure, Google, and OpenStack cloud interfaces for virtual
 machine and data file services. It
 is characterized by defining default templates for virtual machine
 management on these clouds. Hence, it was possible to switch between clouds
