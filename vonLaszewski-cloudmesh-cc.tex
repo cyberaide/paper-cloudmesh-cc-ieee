@@ -308,7 +308,8 @@ deployable on an on-premise local computer or various cloud providers.
 
 \subsubsection{Generalized Job Interface} The framework must be able to
 interface with a wide variety of computation services. This includes
-the support of ssh, batch queues such as Slurm and LSF, and local
+the support of ssh, batch queues such as SLURM \cite{www-slurm} and
+LSF  \cite{www-lsf}, and local
 compute resources including shell scripts, as well as support for WSL.
 
 \subsubsection{Support of various Operating Systems} The framework must be
@@ -333,44 +334,45 @@ workflow framework can be refreshed with the latest state.
 Many different workflow systems have been developed in the past. It is
 out of the scope of this document to present a complete overview of
 all the different systems. Instead, we compare some selected features
-of the systems and identify features that are important for us. The
+of the systems and identify features that are important for us and
+present examples using citations to the features. The
 following features are important.
 
 %\begin{description}
 
-{\bf Batch parallelism.} Long-running jobs on HPC systems are coordinated through
-Batch services.
+\subsubsection{ Batch parallelism} Long-running jobs on HPC systems are coordinated through
+Batch services  \cite{www-lsf}\cite{www-slurm} \cite{www-cloudmesh-manual}\cite{www-airflow} \cite{las-1996-thesis,las-1999-loosely}.
 
-{\bf Task parallelism.} Tasks are a logical unit of work that is
+\subsubsection{ Task parallelism} Tasks are a logical unit of work that is
 executed by a resource, service, or component. Task parallelism
-is often used in distributed resource frameworks.
+is often used in distributed resource frameworks \cite{www-cloudmesh-manual}\cite{www-airflow}.
 
-{\bf Resource Reservation.} In some cases, access to batch queues on
+\subsubsection{ Resource Reservation} In some cases, access to batch queues on
 HPC systems take a long time. In the case of many different tasks, it
 is sometimes useful to research a number of batch nodes and run many
 short-running programs on them if the need arises. This, however, can
 often be replaced just with properly coordinated workflows using a
 batch system. In fact, frameworks using such reservations internally
-implement them using the batch system.
+implement them using the batch system  \cite{las-02-infogram}\cite{www-pegasus} \cite{www-parsl}\cite{arxiv-radical-pilot}.
 
-{\bf Computational Grids.} Grids provide service-level access to
+\subsubsection{ Computational Grids} Grids provide service-level access to
 distributed HPC computing resources. However, Grids (popular a decade
 ago) are no longer predominantly deployed and the focus has shifted to
-Cloud computing.
+Cloud computing \cite{www-pegasus}.
 
-{\bf Cloud.} Presently, computing resources are also available in
+\subsubsection{ Cloud} Presently, computing resources are also available in
 the cloud as HPC, batch, and compute services, including specialized
 SaaS offerings that allow to integrate analytics functions into
-workflows.
+workflows \cite{www-cloudmesh-manual}\cite{www-airflow}\cite{www-gcloud}\cite{www-azure-rest}\cite{www-aws-workflow}\cite{www-azure-batch}.
 
-{\bf REST.} The predominant specification for cloud services uses the
+\subsubsection{ REST} The predominant specification for cloud services uses the
 REST framework relying on a stateless model. This contrasts with the
-WSRF model that uses stateful services.
+WSRF model that uses stateful services \cite{www-business-rest-ibm}.
 
-{\bf Specification.} Some work has also focused on the specification
-of the workflows.
+\subsubsection{ Specification} Some work has also focused on the specification
+of the workflows  \cite{www-snakemake}\cite{las-2004-gridant}\cite{www-pegasus}\cite{las-2007-swift}\cite{www-aws-swf}.
 
-{\bf GUI.} Some frameworks provide extensive GUIs.
+\subsubsection{ GUI} Some frameworks provide extensive GUIs \cite{www-kepler}\cite{www-aws-stepfunctions}\cite{www-azure-batch} \cite{www-azure-enterprise-workflow}.
 
 
 %\end{description}
